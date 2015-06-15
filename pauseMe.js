@@ -1,4 +1,4 @@
-console.log('ver 0.1')
+console.log('ver 0.1.1')
 
 function hello() {
     var qi = {
