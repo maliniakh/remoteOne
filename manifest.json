@@ -18,5 +18,11 @@
     "https://*/*"
   ],
 
-  "background": { "scripts": ["pauseMe.js"] }
+  "background": { "scripts": ["pauseMe.js"] },
+
+  "content_scripts": [{
+    "js": ["jquery-2.1.4.min.js", "content-script.js"],
+    "matches": ["https://www.youtube.com/*"]
+  }]
+
 }
