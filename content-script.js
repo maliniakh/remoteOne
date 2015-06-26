@@ -4,6 +4,7 @@
 //})
 
 
+
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         console.log(sender.tab ?
@@ -29,3 +30,14 @@ chrome.runtime.onMessage.addListener(
         console.log("clicked " + btn);
     });
 
+function pauseVid(tab) {
+
+}
+
+function isYoutube() {
+    return $(location).attr('host').contains("youtube.com");
+}
+
+function isSoundcloud() {
+    return $(location).attr('host').contains("soundcloud.com");
+}
