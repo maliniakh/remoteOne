@@ -8,6 +8,7 @@
 =======
 =======
 
+
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         console.log(sender.tab ?
@@ -34,6 +35,7 @@ chrome.runtime.onMessage.addListener(
     });
 >>>>>>> 0f23081... pausing yt tabs works
 
+<<<<<<< HEAD
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         console.log(sender.tab ?
@@ -86,6 +88,8 @@ chrome.runtime.onMessage.addListener(
         console.log("clicked " + btn);
     });
 
+=======
+>>>>>>> 87b4bf9... meaningless commit
 function pauseVid(tab) {
 
 }
