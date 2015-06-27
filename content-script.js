@@ -1,5 +1,5 @@
 //$(".ytp-button").click(function () {
-//    //alert("test")
+//    //alert("test ")
 //
 //})
 
@@ -30,7 +30,7 @@ chrome.runtime.onMessage.addListener(
         console.log("clicked " + btn);
     });
 
-function pauseVid(tab) {
+function pauseVid(tab ) {
 
 }
 
