@@ -45,3 +45,7 @@ function isSoundcloud() {
 function isVimeo() {
     return $(location).attr('host').contains("vimeo.com");
 }
+
+function isWrzuta() {
+    return $(location).attr('host').contains("wrzuta.pl");
+}
