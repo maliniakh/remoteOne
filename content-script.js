@@ -41,3 +41,7 @@ function isYoutube() {
 function isSoundcloud() {
     return $(location).attr('host').contains("soundcloud.com");
 }
+
+function isVimeo() {
+    return $(location).attr('host').contains("vimeo.com");
+}
