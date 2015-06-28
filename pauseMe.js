@@ -1,5 +1,7 @@
 console.log('ver 0.1.1')
 
+var pausedTab = undefined;
+
 function hello() {
     var qi =  {
         url: '*://*.youtube.com/*'
@@ -11,8 +13,18 @@ function hello() {
         //    chrome.tabs.highlight({windowId: tabs.windowId, tabs: t.index}, function(w) {})
         //})
 
+
+
+        // todo: pause or play?
+        var cmd = 'pause';
+        //if('play') {
+        //    cmd = 'pause'
+        //} else {
+        //    cmd = 'play'
+        //}
+
         tabs.forEach(function (tab) {
-            chrome.tabs.sendMessage(tab.id, {cmd: "pause"}, function (response) {
+            chrome.tabs.sendMessage(tab.id, {cmd: cmd}, function (response) {
                 console.log(response);
             });
         })
@@ -20,5 +32,9 @@ function hello() {
 }
 
 chrome.browserAction.onClicked.addListener(function (tab) {
+    //chrome.windows.getCurrent(function(w) {
+    //    alert(w.id);
+    //});
+
     hello();
 });

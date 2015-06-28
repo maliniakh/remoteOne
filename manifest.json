@@ -23,6 +23,7 @@
     {
       "js": [
         "jquery-2.1.4.min.js",
+        "purl.js",
         "content-script.js"
       ],
       "matches": [
