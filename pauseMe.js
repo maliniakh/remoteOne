@@ -1,34 +1,33 @@
-console.log('ver 0.1.1')
+"use strict"
 
-var pausedTab = undefined;
+var pausedTabs = undefined;
 
-function hello() {
-    var qi =  {
-        url: '*://*.youtube.com/*'
-    }
+var sitesUrls = ['*://*.youtube.com/*', '*://soundcloud.com/*'];
 
-    chrome.tabs.query(qi, function (tabs) {
-        console.log("tabs.length: " + tabs.length)
-        //tabs.forEach(function(t){
-        //    chrome.tabs.highlight({windowId: tabs.windowId, tabs: t.index}, function(w) {})
-        //})
+function execute() {
+    // todo: pause or play?
+    var cmd = 'pause';
+    //if('play') {
+    //    cmd = 'pause'
+    //} else {
+    //    cmd = 'play'
+    //}
 
+    sitesUrls.forEach(function (url) {
+        var qi = {
+            url: url
+        };
 
+        chrome.tabs.query(qi, function (tabs) {
+            console.log("tabs for " + url + ": " + tabs.length);
 
-        // todo: pause or play?
-        var cmd = 'pause';
-        //if('play') {
-        //    cmd = 'pause'
-        //} else {
-        //    cmd = 'play'
-        //}
-
-        tabs.forEach(function (tab) {
-            chrome.tabs.sendMessage(tab.id, {cmd: cmd}, function (response) {
-                console.log(response);
+            tabs.forEach(function (tab) {
+                chrome.tabs.sendMessage(tab.id, {cmd: cmd}, function (response) {
+                    console.log(response);
+                });
             });
-        })
-    })
+        });
+    });
 }
 
 chrome.browserAction.onClicked.addListener(function (tab) {
@@ -36,5 +35,24 @@ chrome.browserAction.onClicked.addListener(function (tab) {
     //    alert(w.id);
     //});
 
-    hello();
+    execute();
 });
+
+
+function getRelevantTabs() {
+    var result = [];
+
+    sitesUrls.forEach(function (url) {
+        var qi = {
+            url: url
+        };
+
+        chrome.tabs.query(qi, function (tabs) {
+            console.log("tabs for " + url + ": " + tabs.length);
+            result = $.merge(result, tabs);
+        });
+    });
+
+    console.log("all relevant tabs: " + result.length);
+    return result;
+}

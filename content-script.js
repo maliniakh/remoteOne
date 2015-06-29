@@ -1,16 +1,18 @@
+"use strict";
+
 function Site() {
     throw new Error("Abstract class")
 }
 
 Site.prototype.isIt = function () {
     throw new Error ("Not implemented");
-}
+};
 
 var YouTube = function() {};
 YouTube.prototype = Object.create(Site.prototype);
 YouTube.prototype.isIt = function() {
     return purl(location).attr('host').indexOf("youtube.com") >= 0;
-}
+};
 
 YouTube.prototype.isPlaying = function() {
     var btn = $(".ytp-button.ytp-button-pause");
@@ -21,30 +23,53 @@ YouTube.prototype.isPlaying = function() {
     } else {
         throw new Error('cant tell if the video is being played')
     }
-}
+};
 
 YouTube.prototype.play = function() {
     $(".ytp-button.ytp-button-play").trigger('click');
-}
+};
 
 YouTube.prototype.pause = function() {
     $(".ytp-button.ytp-button-pause").trigger('click');
-}
+};
 
 
+var Soundcloud = function() {};
+Soundcloud.prototype = Object.create(Site.prototype);
+Soundcloud.prototype.isIt = function() {
+    return purl(location).attr('host').indexOf("youtube.com") >= 0;
+};
 
-var yt = new YouTube();
+Soundcloud.prototype.isPlaying = function() {
+    var btn = $(".playControl.playing");
+    if(btn.length >= 1) {
+        return true;
+    } else {
+        return false;
+    }
+};
 
-var site = yt;
+Soundcloud.prototype.play = function() {
+    $(".playControl").trigger('click');
+};
+
+Soundcloud.prototype.pause = function() {
+    $(".playControl").trigger('click');
+};
+
+var sites = [new YouTube(), new Soundcloud()];
+
+var site = $.grep(sites, function(st, i){
+    return st.isIt();
+})[0];
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
-        //if (request. == "hello")
+        //if (request. == "execute")
         //    sendResponse({farewell: "goodbye"});
 
         //$(".ytp-button").click(function () {
-        //    //alert("test")
         //    console.log("click " + $(this));
         //})
 
@@ -55,35 +80,8 @@ chrome.runtime.onMessage.addListener(
             site.play();
         }
 
-        //var btn = $(".ytp-button.ytp-button-play");
-        //if(btn.length == 1) {
-        //    btn.trigger('click');
-        //} else {
-        //    btn = $(".ytp-button.ytp-button-pause");
-        //    if(btn.length == 1) {
-        //        btn.trigger('click');
-        //    }
-        //}
+        // todo: sendResponse?
 
         //console.log("clicked " + btn);
     });
 
-//function pauseVid(tab) {
-//
-//}
-//
-//function isYoutube() {
-//    return $(location).attr('host').contains("youtube.com");
-//}
-//
-//function isSoundcloud() {
-//    return $(location).attr('host').contains("soundcloud.com");
-//}
-//
-//function isVimeo() {
-//    return $(location).attr('host').contains("vimeo.com");
-//}
-//
-//function isWrzuta() {
-//    return $(location).attr('host').contains("wrzuta.pl");
-//}

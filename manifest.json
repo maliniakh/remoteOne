@@ -1,10 +1,10 @@
 {
   "manifest_version": 2,
-  "name": "Getting started example",
-  "description": "This extension shows a Google Image search result for the current page",
+  "name": "PauseMe",
+  "description": "pauses/plays (music) videos across all tabs",
   "version": "1.0",
   "browser_action": {
-    "default_icon": "icon.png"
+    "default_icon": "icon_play.png"
   },
   "permissions": [
     "activeTab",
@@ -16,6 +16,7 @@
   ],
   "background": {
     "scripts": [
+      "jquery-2.1.4.min.js",
       "pauseMe.js"
     ]
   },
@@ -27,7 +28,8 @@
         "content-script.js"
       ],
       "matches": [
-        "https://www.youtube.com/*"
+        "https://www.youtube.com/*",
+        "https://soundcloud.com/*"
       ]
     }
   ]
