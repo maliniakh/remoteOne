@@ -37,7 +37,7 @@ YouTube.prototype.pause = function() {
 var Soundcloud = function() {};
 Soundcloud.prototype = Object.create(Site.prototype);
 Soundcloud.prototype.isIt = function() {
-    return purl(location).attr('host').indexOf("youtube.com") >= 0;
+    return purl(location).attr('host').indexOf("soundcloud.com") >= 0;
 };
 
 Soundcloud.prototype.isPlaying = function() {
