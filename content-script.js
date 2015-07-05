@@ -84,4 +84,3 @@ chrome.runtime.onMessage.addListener(
 
         //console.log("clicked " + btn);
     });
-

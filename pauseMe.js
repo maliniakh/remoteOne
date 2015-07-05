@@ -31,10 +31,6 @@ function execute() {
 }
 
 chrome.browserAction.onClicked.addListener(function (tab) {
-    //chrome.windows.getCurrent(function(w) {
-    //    alert(w.id);
-    //});
-
     execute();
 });
 
