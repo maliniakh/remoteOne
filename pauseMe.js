@@ -3,13 +3,7 @@
 var pausedTabs = undefined;
 
 function execute() {
-    // todo: pause or play?
     var cmd = 'pause';
-    //if('play') {
-    //    cmd = 'pause'
-    //} else {
-    //    cmd = 'play'
-    //}
 
     sitesUrls.forEach(function (url) {
         var qi = {

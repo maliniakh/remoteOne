@@ -66,6 +66,8 @@ var site = $.grep(sites, function(st, i){
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
+
+        console.log('request.action: ' + request.action);
         //if (request. == "execute")
         //    sendResponse({farewell: "goodbye"});
 
@@ -80,7 +82,7 @@ chrome.runtime.onMessage.addListener(
             site.play();
         }
 
-        // todo: sendResponse?
+        sendResponse({resp: 'ok'});
 
         //console.log("clicked " + btn);
     });

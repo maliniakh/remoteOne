@@ -4,25 +4,27 @@ var sitesUrls = ['*://*.youtube.com/*', '*://soundcloud.com/*'];
 var result = [];
 
 
+function addEventHandlers(divEl, tabId) {
+    divEl.find('#prev').click(function () {
+        chrome.tabs.sendMessage(tabId, {action: 'prev'}, function(resp) {console.log('resp: ' + resp)})
+    });
 
+    divEl.find('#pause').click(function () {
+        chrome.tabs.sendMessage(tabId, {action: 'pause'}, function(resp) {console.log('resp: ' + resp)})
+    });
+
+    divEl.find('#play').click(function () {
+        chrome.tabs.sendMessage(tabId, {action: 'play'}, function(resp) {console.log('resp: ' + resp)})
+    });
+
+    divEl.find('#next').click(function () {
+        chrome.tabs.sendMessage(tabId, {action: 'next'}, function(resp) {console.log('resp: ' + resp)})
+    });
+}
 document.addEventListener('DOMContentLoaded', function () {
     getRelevantTabs(addControls);
 
-    document.getElementById('prev').onclick = function () {
-        alert('prev');
-    };
-
-    document.getElementById('pause').onclick = function () {
-        alert('pause');
-    };
-
-    document.getElementById('play').onclick = function () {
-        alert('play');
-    };
-
-    document.getElementById('next').onclick = function () {
-        alert('next');
-    };
+    //addEventHandlers();
 });
 
 // make it return tabs actually
@@ -53,18 +55,20 @@ function addControls(tabs) {
 
         // id, visibility
         var templateDiv = $('#template');
+
+        console.log('tmplDiv: ' + templateDiv)
         var controlsDiv = templateDiv.clone(false);
         controlsDiv.attr('id', 'tab_' + tab.windowId + "_" + tab.id);
+        controlsDiv.attr('data-tabId', tab.id);
+        controlsDiv.attr('data-windowId', tab.windowId)
         controlsDiv.css('visibility', 'visible');
 
         // title
         controlsDiv.find('.title').text(tab.title);
 
+        addEventHandlers(controlsDiv, tab.id);
+
         templateDiv.after(controlsDiv);
     }
 
 }
-
-//$("#next").click(function () {
-//    alert('next')
-//});
