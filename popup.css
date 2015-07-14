@@ -24,8 +24,8 @@ td {
 	
 }
 
-.player {
-	width: 310px;
+#template {
+	width: 160px;
 	border-top: 1px solid RGB(148, 148, 148);
 	padding-bottom: 8px;
 	padding-left: 7px;
