@@ -81,8 +81,14 @@ var site = $.grep(sites, function(st, i){
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
-
         console.log('request.action: ' + request.action);
+
+        if(request.action == 'isPlaying'){
+            //alert('isplaying cs');
+            sendResponse({resp: site.isPlaying()});
+            return;
+        }
+
         //var playing = site.isPlaying();
         if(request.action == 'play') {
             site.play();

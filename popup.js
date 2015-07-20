@@ -4,21 +4,31 @@ var sitesUrls = ['*://*.youtube.com/*', '*://soundcloud.com/*'];
 var result = [];
 
 
-function addEventHandlers(divEl, tabId) {
-    divEl.find('#prev').click(function () {
+function addEventHandlers(controlsDiv, tabId) {
+    controlsDiv.find('#prev').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'prev'}, function(resp) {console.log('resp: ' + resp)})
+        chrome.tabs.get(tabId, function(tab) {
+            controlsDiv.find('.title').text(tab.title);
+        });
     });
 
-    divEl.find('#pause').click(function () {
+    controlsDiv.find('#pause').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'pause'}, function(resp) {console.log('resp: ' + resp)})
+        showPlayBtn(controlsDiv);
     });
 
-    divEl.find('#play').click(function () {
+    controlsDiv.find('#play').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'play'}, function(resp) {console.log('resp: ' + resp)})
+        showPauseBtn(controlsDiv);
     });
 
-    divEl.find('#next').click(function () {
-        chrome.tabs.sendMessage(tabId, {action: 'next'}, function(resp) {console.log('resp: ' + resp)})
+    controlsDiv.find('#next').click(function () {
+        chrome.tabs.sendMessage(tabId, {action: 'next'}, function(resp) {
+            console.log('resp: ' + resp)
+            chrome.tabs.get(tabId, function(tab) {
+                controlsDiv.find('.title').text(tab.title);
+            });
+        });
     });
 }
 document.addEventListener('DOMContentLoaded', function () {
@@ -65,7 +75,30 @@ function addControls(tabs) {
 
         addEventHandlers(controlsDiv, tab.id);
 
+        chrome.tabs.sendMessage(tab.id, {action: 'isPlaying'},
+            function(resp) {
+                var isPlaying = resp.resp;
+                console.log('tabid (' + tab.id + ') is playing: ' + isPlaying);
+
+                if(isPlaying) {
+                    showPauseBtn(controlsDiv);
+                } else {
+                    showPlayBtn(controlsDiv);
+                }
+            }
+        );
+
         templateDiv.after(controlsDiv);
     }
 
+}
+
+function showPauseBtn(controlsDiv) {
+    controlsDiv.find('#play').hide();
+    controlsDiv.find('#pause').show();
+}
+
+function showPlayBtn(controlsDiv) {
+    controlsDiv.find('#play').show();
+    controlsDiv.find('#pause').hide();
 }
