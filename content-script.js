@@ -33,6 +33,13 @@ YouTube.prototype.pause = function() {
     $(".ytp-button.ytp-button-pause").trigger('click');
 };
 
+YouTube.prototype.prev = function() {
+    $(".ytp-button.ytp-button-prev").trigger('click');
+};
+
+YouTube.prototype.next = function() {
+    $(".ytp-button.ytp-button-next").trigger('click');
+};
 
 var Soundcloud = function() {};
 Soundcloud.prototype = Object.create(Site.prototype);
@@ -57,6 +64,14 @@ Soundcloud.prototype.pause = function() {
     $(".playControl").trigger('click');
 };
 
+Soundcloud.prototype.prev = function() {
+    $(".skipControl__previous").trigger('click');
+};
+
+Soundcloud.prototype.next = function() {
+    $(".skipControl__next").trigger('click');
+};
+
 var sites = [new YouTube(), new Soundcloud()];
 
 var site = $.grep(sites, function(st, i){
@@ -68,18 +83,17 @@ chrome.runtime.onMessage.addListener(
         console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
 
         console.log('request.action: ' + request.action);
-        //if (request. == "execute")
-        //    sendResponse({farewell: "goodbye"});
-
-        //$(".ytp-button").click(function () {
-        //    console.log("click " + $(this));
-        //})
-
-        var playing = site.isPlaying();
-        if(request.cmd == 'pause' && playing) {
-            site.pause();
-        } else if(request.cmd == 'play' && !playing) {
+        //var playing = site.isPlaying();
+        if(request.action == 'play') {
             site.play();
+        } else if(request.action == 'pause') {
+            site.pause();
+        } else if(request.action == 'prev') {
+            site.prev();
+        } else if(request.action == 'next') {
+            site.next();
+        } else {
+            console.error('unrecognized command: ' + request.action)
         }
 
         sendResponse({resp: 'ok'});

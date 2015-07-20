@@ -14,7 +14,7 @@ function execute() {
             console.log("tabs for " + url + ": " + tabs.length);
 
             tabs.forEach(function (tab) {
-                chrome.tabs.sendMessage(tab.id, {cmd: cmd}, function (response) {
+                chrome.tabs.sendMessage(tab.id, {action: cmd}, function (response) {
                     console.log(response);
                 });
             });

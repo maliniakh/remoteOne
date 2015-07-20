@@ -23,8 +23,6 @@ function addEventHandlers(divEl, tabId) {
 }
 document.addEventListener('DOMContentLoaded', function () {
     getRelevantTabs(addControls);
-
-    //addEventHandlers();
 });
 
 // make it return tabs actually
@@ -60,7 +58,6 @@ function addControls(tabs) {
         var controlsDiv = templateDiv.clone(false);
         controlsDiv.attr('id', 'tab_' + tab.windowId + "_" + tab.id);
         controlsDiv.attr('data-tabId', tab.id);
-        controlsDiv.attr('data-windowId', tab.windowId)
         controlsDiv.css('visibility', 'visible');
 
         // title
