@@ -15,12 +15,6 @@
     "http://*/*",
     "https://*/*"
   ],
-  "background": {
-    "scripts": [
-      "lib/jquery-2.1.4.min.js",
-      "pauseMe.js"
-    ]
-  },
   "content_scripts": [
     {
       "js": [

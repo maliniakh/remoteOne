@@ -6,19 +6,20 @@ var result = [];
 
 function addEventHandlers(controlsDiv, tabId) {
     controlsDiv.find('#prev').click(function () {
-        chrome.tabs.sendMessage(tabId, {action: 'prev'}, function(resp) {console.log('resp: ' + resp)})
+        chrome.tabs.sendMessage(tabId, {action: 'prev'}, function(resp) {console.log('resp: ' + resp)});
+        chrome.tabs.sendMessage(tabId, {action: 'prevNextAvailability'}, function(resp) {updatePrevNextAvailability(controlsDiv,resp)});
         chrome.tabs.get(tabId, function(tab) {
             controlsDiv.find('.title').text(tab.title);
         });
     });
 
     controlsDiv.find('#pause').click(function () {
-        chrome.tabs.sendMessage(tabId, {action: 'pause'}, function(resp) {console.log('resp: ' + resp)})
+        chrome.tabs.sendMessage(tabId, {action: 'pause'}, function(resp) {console.log('resp: ' + resp)});
         showPlayBtn(controlsDiv);
     });
 
     controlsDiv.find('#play').click(function () {
-        chrome.tabs.sendMessage(tabId, {action: 'play'}, function(resp) {console.log('resp: ' + resp)})
+        chrome.tabs.sendMessage(tabId, {action: 'play'}, function(resp) {console.log('resp: ' + resp)});
         showPauseBtn(controlsDiv);
     });
 
@@ -29,6 +30,7 @@ function addEventHandlers(controlsDiv, tabId) {
                 controlsDiv.find('.title').text(tab.title);
             });
         });
+        chrome.tabs.sendMessage(tabId, {action: 'prevNextAvailability'}, function(resp) {updatePrevNextAvailability(controlsDiv,resp)});
     });
 }
 document.addEventListener('DOMContentLoaded', function () {
@@ -88,6 +90,14 @@ function addControls(tabs) {
             }
         );
 
+        chrome.tabs.sendMessage(tab.id, {action: 'prevNextAvailability'},
+            function(resp) {
+                console.log('prev/next availability (' + tab.id + '): ' + resp.prev + "/" + resp.next);
+
+                updatePrevNextAvailability(controlsDiv, resp);
+            }
+        );
+
         templateDiv.after(controlsDiv);
     }
 
@@ -101,4 +111,24 @@ function showPauseBtn(controlsDiv) {
 function showPlayBtn(controlsDiv) {
     controlsDiv.find('#play').show();
     controlsDiv.find('#pause').hide();
+}
+
+function updatePrevNextAvailability(controlsDiv, status) {
+    var prevEl = controlsDiv.find('#prev');
+    if(status.prev) {
+        prevEl.addClass('enabled');
+        prevEl.removeClass('disabled');
+    } else {
+        prevEl.addClass('disabled');
+        prevEl.removeClass('enabled');
+    }
+
+    var nextEl = controlsDiv.find('#next');
+    if(status.next) {
+        nextEl.removeClass('disabled');
+        nextEl.addClass('enabled')
+    } else {
+        nextEl.addClass('disabled');
+        nextEl.removeClass('enabled');
+    }
 }

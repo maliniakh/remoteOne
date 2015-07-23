@@ -8,6 +8,34 @@ Site.prototype.isIt = function () {
     throw new Error ("Not implemented");
 };
 
+Site.prototype.isPlaying = function () {
+    throw new Error ("Not implemented");
+};
+
+Site.prototype.play = function () {
+    throw new Error ("Not implemented");
+};
+
+Site.prototype.pause = function () {
+    throw new Error ("Not implemented");
+};
+
+Site.prototype.prev = function () {
+    throw new Error ("Not implemented");
+};
+
+Site.prototype.isPrevAvailable = function () {
+    throw new Error ("Not implemented");
+};
+
+Site.prototype.isNextAvailable = function () {
+    throw new Error ("Not implemented");
+};
+
+Site.prototype.next = function () {
+    throw new Error ("Not implemented");
+};
+
 var YouTube = function() {};
 YouTube.prototype = Object.create(Site.prototype);
 YouTube.prototype.isIt = function() {
@@ -41,6 +69,22 @@ YouTube.prototype.next = function() {
     $(".ytp-button.ytp-button-next").trigger('click');
 };
 
+YouTube.prototype.isPrevAvailable = function() {
+    var el = $(".ytp-button.ytp-button-prev");
+    if(el.length == 0) {
+        return false;
+    }
+    return el.css('display') != 'none';
+};
+
+YouTube.prototype.isNextAvailable = function() {
+    var el = $(".ytp-button.ytp-button-next");
+    if(el.length == 0) {
+        return false;
+    }
+    return el.css('display') != 'none';
+};
+
 var Soundcloud = function() {};
 Soundcloud.prototype = Object.create(Site.prototype);
 Soundcloud.prototype.isIt = function() {
@@ -72,6 +116,23 @@ Soundcloud.prototype.next = function() {
     $(".skipControl__next").trigger('click');
 };
 
+Soundcloud.prototype.isPrevAvailable = function() {
+    var el = $(".skipControl__previous");
+    if(el.length == 0) {
+        return false;
+    }
+    return !el.hasClass('disabled');
+};
+
+Soundcloud.prototype.isNextAvailable = function() {
+    var el = $(".skipControl__next");
+    if(el.length == 0) {
+        return false;
+    }
+    return !el.css('disabled');
+};
+
+
 var sites = [new YouTube(), new Soundcloud()];
 
 var site = $.grep(sites, function(st, i){
@@ -87,9 +148,11 @@ chrome.runtime.onMessage.addListener(
             //alert('isplaying cs');
             sendResponse({resp: site.isPlaying()});
             return;
+        } else if (request.action == 'prevNextAvailability') {
+            sendResponse({prev: site.isPrevAvailable(), next: site.isNextAvailable()});
+            return;
         }
 
-        //var playing = site.isPlaying();
         if(request.action == 'play') {
             site.play();
         } else if(request.action == 'pause') {
