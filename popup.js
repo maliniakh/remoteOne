@@ -70,7 +70,7 @@ function addControls(tabs) {
         var controlsDiv = templateDiv.clone(false);
         controlsDiv.attr('id', 'tab_' + tab.windowId + "_" + tab.id);
         controlsDiv.attr('data-tabId', tab.id);
-        controlsDiv.css('visibility', 'visible');
+        controlsDiv.css('display', '');
 
         // title
         controlsDiv.find('.title').text(tab.title);
@@ -98,7 +98,8 @@ function addControls(tabs) {
             }
         );
 
-        templateDiv.after(controlsDiv);
+        $('#main').append(controlsDiv);
+        //templateDiv.after(controlsDiv);
     }
 
 }
