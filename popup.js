@@ -1,6 +1,6 @@
 "use strict"
 
-var sitesUrls = ['*://*.youtube.com/*', '*://soundcloud.com/*'];
+var sitesUrls = ['*://*.youtube.com/watch*', '*://soundcloud.com/*'];
 var result = [];
 
 
@@ -52,7 +52,7 @@ function getRelevantTabs(callback) {
         chrome.tabs.query(qi, function (tabs) {
             console.log("tabs for " + url + ": " + tabs.length);
             result = $.merge(result, tabs);
-            addControls(tabs)
+            callback(tabs)
         });
     });
 
