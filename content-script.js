@@ -24,6 +24,10 @@ Site.prototype.prev = function () {
     throw new Error ("Not implemented");
 };
 
+Site.prototype.replay = function () {
+    throw new Error ("Not implemented");
+};
+
 Site.prototype.isPrevAvailable = function () {
     throw new Error ("Not implemented");
 };

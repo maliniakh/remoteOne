@@ -32,6 +32,11 @@ function addEventHandlers(controlsDiv, tabId) {
         });
         chrome.tabs.sendMessage(tabId, {action: 'prevNextAvailability'}, function(resp) {updatePrevNextAvailability(controlsDiv,resp)});
     });
+
+    controlsDiv.find('#close').click(function () {
+        chrome.tabs.remove(tabId);
+        controlsDiv.hide();
+    });
 }
 document.addEventListener('DOMContentLoaded', function () {
     getRelevantTabs(addControls);
