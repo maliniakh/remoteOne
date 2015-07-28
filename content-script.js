@@ -143,6 +143,11 @@ Soundcloud.prototype.isNextAvailable = function () {
     return !el.css('disabled');
 };
 
+Soundcloud.prototype.replay = function () {
+    // there might not be a better way at all
+    this.next();
+    this.prev();
+};
 
 var sites = [new YouTube(), new Soundcloud()];
 
