@@ -48,10 +48,9 @@ YouTube.prototype.isIt = function () {
 };
 
 YouTube.prototype.isPlaying = function () {
-    var btn = $(".ytp-button.ytp-button-pause");
-    if (btn.length == 1) {
+    if ($(".playing-mode").length == 1) {
         return true;
-    } else if (btn.length == 0) {
+    } else if ($(".paused-mode").length == 1 || $(".ended-mode").length) {
         return false;
     } else {
         throw new Error('cant tell if the video is being played')
@@ -59,23 +58,23 @@ YouTube.prototype.isPlaying = function () {
 };
 
 YouTube.prototype.play = function () {
-    $(".ytp-button.ytp-button-play").trigger('click');
+    $(".ytp-button.ytp-play-button").click();
 };
 
 YouTube.prototype.pause = function () {
-    $(".ytp-button.ytp-button-pause").trigger('click');
+    $(".ytp-button.ytp-play-button").click();
 };
 
 YouTube.prototype.prev = function () {
-    $(".ytp-button.ytp-button-prev").trigger('click');
+    $(".ytp-button.ytp-prev-button")[0].click();
 };
 
 YouTube.prototype.next = function () {
-    $(".ytp-button.ytp-button-next").trigger('click');
+    $(".ytp-button.ytp-next-button")[0].click();
 };
 
 YouTube.prototype.isPrevAvailable = function () {
-    var el = $(".ytp-button.ytp-button-prev");
+    var el = $(".ytp-button.ytp-prev-button");
     if (el.length == 0) {
         return false;
     }
@@ -83,7 +82,7 @@ YouTube.prototype.isPrevAvailable = function () {
 };
 
 YouTube.prototype.isNextAvailable = function () {
-    var el = $(".ytp-button.ytp-button-next");
+    var el = $(".ytp-button.ytp-next-button");
     if (el.length == 0) {
         return false;
     }
@@ -112,19 +111,19 @@ Soundcloud.prototype.isPlaying = function () {
 };
 
 Soundcloud.prototype.play = function () {
-    $(".playControl").trigger('click');
+    $(".playControl").click();
 };
 
 Soundcloud.prototype.pause = function () {
-    $(".playControl").trigger('click');
+    $(".playControl").click();
 };
 
 Soundcloud.prototype.prev = function () {
-    $(".skipControl__previous").trigger('click');
+    $(".skipControl__previous").click();
 };
 
 Soundcloud.prototype.next = function () {
-    $(".skipControl__next").trigger('click');
+    $(".skipControl__next").click();
 };
 
 Soundcloud.prototype.isPrevAvailable = function () {
@@ -161,7 +160,6 @@ chrome.runtime.onMessage.addListener(
         console.log('request.action: ' + request.action);
 
         if (request.action == 'isPlaying') {
-            //alert('isplaying cs');
             sendResponse({resp: site.isPlaying()});
             return;
         } else if (request.action == 'prevNextAvailability') {

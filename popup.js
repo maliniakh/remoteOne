@@ -23,16 +23,19 @@ function addEventHandlers(controlsDiv, tabId) {
         showPauseBtn(controlsDiv);
     });
 
+    controlsDiv.find('#next').click(function () {
+        chrome.tabs.sendMessage(tabId, {action: 'next'}, function(resp) {console.log('resp: ' + resp)});
+        chrome.tabs.sendMessage(tabId, {action: 'prevNextAvailability'}, function(resp) {updatePrevNextAvailability(controlsDiv,resp)});
+        chrome.tabs.get(tabId, function(tab) {
+            controlsDiv.find('.title').text(tab.title);
+        });
+    });
+
     controlsDiv.find('#replay').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'replay'}, function(resp) {
             console.log('resp: ' + resp)
             showPauseBtn(controlsDiv);
         });
-    });
-
-    controlsDiv.find('#close').click(function () {
-        chrome.tabs.remove(tabId);
-        controlsDiv.hide();
     });
 
     controlsDiv.find('#close').click(function () {
