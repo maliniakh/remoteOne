@@ -12,6 +12,8 @@
 }
 
 #main {
+	width: 300px;
+
 	list-style-type: disc;
 	-webkit-margin-before: 1em;
 	-webkit-margin-after: 1em;
@@ -20,10 +22,17 @@
 	-webkit-padding-start: 40px;
 }
 
+#main div {
+	width: 100%;
+}
+
 ul li {
 	list-style: none;
 	/*height: 20px;*/
 	margin-bottom: 7px;
+	margin-left: auto;
+	margin-right: auto;
+	border: dashed 1px black;
 }
 
 
