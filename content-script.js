@@ -156,6 +156,10 @@ Soundcloud.prototype.replay = function () {
     this.prev();
 };
 
+Soundcloud.prototype.getTitle = function () {
+    return $('.playbackSoundBadge__title').attr('title');
+};
+
 var sites = [new YouTube(), new Soundcloud()];
 
 var site = $.grep(sites, function (st, i) {
