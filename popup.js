@@ -8,9 +8,7 @@ function addEventHandlers(controlsDiv, tabId) {
     controlsDiv.find('#prev').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'prev'}, function(resp) {console.log('resp: ' + resp)});
         chrome.tabs.sendMessage(tabId, {action: 'prevNextAvailability'}, function(resp) {updatePrevNextAvailability(controlsDiv,resp)});
-        chrome.tabs.get(tabId, function(tab) {
-            controlsDiv.find('.title').text(tab.title);
-        });
+        sendMessageTitle(controlsDiv, tabId);
     });
 
     controlsDiv.find('#pause').click(function () {
@@ -26,9 +24,7 @@ function addEventHandlers(controlsDiv, tabId) {
     controlsDiv.find('#next').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'next'}, function(resp) {console.log('resp: ' + resp)});
         chrome.tabs.sendMessage(tabId, {action: 'prevNextAvailability'}, function(resp) {updatePrevNextAvailability(controlsDiv,resp)});
-        chrome.tabs.get(tabId, function(tab) {
-            controlsDiv.find('.title').text(tab.title);
-        });
+        sendMessageTitle(controlsDiv, tabId);
     });
 
     controlsDiv.find('#replay').click(function () {
@@ -83,7 +79,7 @@ function addControls(tabs) {
         controlsDiv.css('display', '');
 
         // title
-        controlsDiv.find('.title').text(tab.title);
+        sendMessageTitle(controlsDiv, tab.id);
 
         addEventHandlers(controlsDiv, tab.id);
 
@@ -142,4 +138,8 @@ function updatePrevNextAvailability(controlsDiv, status) {
         nextEl.addClass('disabled');
         nextEl.removeClass('enabled');
     }
+}
+
+function sendMessageTitle(controlsDiv, tabId) {
+    chrome.tabs.sendMessage(tabId, {action: 'title'}, function(resp) {controlsDiv.find('.title').text(resp.title);});
 }

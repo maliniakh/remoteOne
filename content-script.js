@@ -40,6 +40,10 @@ Site.prototype.next = function () {
     throw new Error("Not implemented");
 };
 
+Site.prototype.getTitle = function () {
+    throw new Error("Not implemented");
+};
+
 var YouTube = function () {
 };
 YouTube.prototype = Object.create(Site.prototype);
@@ -92,6 +96,10 @@ YouTube.prototype.isNextAvailable = function () {
 YouTube.prototype.replay = function () {
     $('video')[0].currentTime = 0;
     this.play();
+};
+
+YouTube.prototype.getTitle = function () {
+    return $('#eow-title').attr('title');
 };
 
 var Soundcloud = function () {
@@ -164,6 +172,9 @@ chrome.runtime.onMessage.addListener(
             return;
         } else if (request.action == 'prevNextAvailability') {
             sendResponse({prev: site.isPrevAvailable(), next: site.isNextAvailable()});
+            return;
+        } else if (request.action == 'title') {
+            sendResponse({title: site.getTitle()});
             return;
         }
 
