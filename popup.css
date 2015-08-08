@@ -11,6 +11,10 @@
 	-webkit-filter:opacity(50%);
 }
 
+div {
+	border: dashed 1px black;
+}
+
 #main {
 	width: 300px;
 
@@ -23,16 +27,25 @@
 }
 
 #main div {
-	width: 100%;
+	/*width: 100%;*/
 }
 
 ul li {
 	list-style: none;
 	/*height: 20px;*/
 	margin-bottom: 7px;
-	margin-left: auto;
-	margin-right: auto;
+	/*margin-left: auto;*/
+	/*margin-right: auto;*/
 	border: dashed 1px black;
+	text-align: center;
+}
+
+.buttons {
+	border: dashed 1px black;
+	display: inline-block;
+
+	/*margin: 0 auto;*/
+	/*width: 80%;*/
 }
 
 
