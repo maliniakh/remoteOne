@@ -45,17 +45,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // make it return tabs actually
 function getRelevantTabs(callback) {
-    sitesUrls.forEach(function (url) {
+    for(var i = 0; i < sitesUrls.length; i++) {
+        var url = sitesUrls[i];
         var qi = {
             url: url
         };
 
         chrome.tabs.query(qi, function (tabs) {
             console.log("tabs for " + url + ": " + tabs.length);
-            result = $.merge(result, tabs);
+            //result = $.merge(result, tabs);
             callback(tabs)
         });
-    });
+    };
 
     console.log("all relevant tabs: " + result.length);
     //return result;
@@ -72,37 +73,17 @@ function addControls(tabs) {
         // id, visibility
         var templateDiv = $('#template');
 
-        console.log('tmplDiv: ' + templateDiv)
         var controlsDiv = templateDiv.clone(false);
         controlsDiv.attr('id', 'tab_' + tab.windowId + "_" + tab.id);
         controlsDiv.attr('data-tabId', tab.id);
         controlsDiv.css('display', '');
 
-        // title
+        // title & others
         sendMessageTitle(controlsDiv, tab.id);
+        sendMessageIsPlaying(controlsDiv, tab.id);
+        sendMessagePrevNextAvailability(controlsDiv, tab.id);
 
         addEventHandlers(controlsDiv, tab.id);
-
-        chrome.tabs.sendMessage(tab.id, {action: 'isPlaying'},
-            function(resp) {
-                var isPlaying = resp.resp;
-                console.log('tabid (' + tab.id + ') is playing: ' + isPlaying);
-
-                if(isPlaying) {
-                    showPauseBtn(controlsDiv);
-                } else {
-                    showPlayBtn(controlsDiv);
-                }
-            }
-        );
-
-        chrome.tabs.sendMessage(tab.id, {action: 'prevNextAvailability'},
-            function(resp) {
-                console.log('prev/next availability (' + tab.id + '): ' + resp.prev + "/" + resp.next);
-
-                updatePrevNextAvailability(controlsDiv, resp);
-            }
-        );
 
         $('#main').append(controlsDiv);
         //templateDiv.after(controlsDiv);
@@ -141,5 +122,33 @@ function updatePrevNextAvailability(controlsDiv, status) {
 }
 
 function sendMessageTitle(controlsDiv, tabId) {
-    chrome.tabs.sendMessage(tabId, {action: 'title'}, function(resp) {controlsDiv.find('.title').text(resp.title);});
+    chrome.tabs.sendMessage(tabId, {action: 'title'}, function(resp) {
+        console.log('got title: ' + resp.title);
+        controlsDiv.find('.title').text(resp.title);
+    });
+}
+
+function sendMessageIsPlaying(controlsDiv, tabId) {
+    chrome.tabs.sendMessage(tabId, {action: 'isPlaying'},
+        function(resp) {
+            var isPlaying = resp.resp;
+            console.log('tab ' + tabId + ' is playing: ' + isPlaying);
+
+            if(isPlaying) {
+                showPauseBtn(controlsDiv);
+            } else {
+                showPlayBtn(controlsDiv);
+            }
+        }
+    );
+}
+
+function sendMessagePrevNextAvailability(controlsDiv, tabId) {
+    chrome.tabs.sendMessage(tabId, {action: 'prevNextAvailability'},
+        function(resp) {
+            console.log('prev/next availability (' + tabId + '): ' + resp.prev + "/" + resp.next);
+
+            updatePrevNextAvailability(controlsDiv, resp);
+        }
+    );
 }

@@ -170,7 +170,7 @@ Soundcloud.prototype.replay = function () {
 
 Soundcloud.prototype.getTitle = function () {
     //return $(".soundTitle__title > span").html();
-    var title = $(document).find("title").text().replaceAll(' | Free Listening on SoundCloud', '');
+    var title = $(document).find("title").text().replace(' | Free Listening on SoundCloud', '');
     return title;
 };
 
