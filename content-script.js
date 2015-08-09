@@ -110,6 +110,10 @@ Soundcloud.prototype.isIt = function () {
 };
 
 Soundcloud.prototype.isPlaying = function () {
+    if(this.controlBarHidden()) {
+        return false;
+    }
+
     var btn = $(".playControl.playing");
     if (btn.length >= 1) {
         return true;
@@ -135,6 +139,10 @@ Soundcloud.prototype.next = function () {
 };
 
 Soundcloud.prototype.isPrevAvailable = function () {
+    if(this.controlBarHidden()) {
+        return false;
+    }
+
     var el = $(".skipControl__previous");
     if (el.length == 0) {
         return false;
@@ -143,6 +151,10 @@ Soundcloud.prototype.isPrevAvailable = function () {
 };
 
 Soundcloud.prototype.isNextAvailable = function () {
+    if(this.controlBarHidden()) {
+        return false;
+    }
+
     var el = $(".skipControl__next");
     if (el.length == 0) {
         return false;
@@ -157,8 +169,15 @@ Soundcloud.prototype.replay = function () {
 };
 
 Soundcloud.prototype.getTitle = function () {
-    return $('.playbackSoundBadge__title').attr('title');
+    //return $(".soundTitle__title > span").html();
+    var title = $(document).find("title").text().replaceAll(' | Free Listening on SoundCloud', '');
+    return title;
 };
+
+Soundcloud.prototype.controlBarHidden = function () {
+    return $('.playControls').hasClass('m-visible') == false;
+};
+
 
 var sites = [new YouTube(), new Soundcloud()];
 
