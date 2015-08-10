@@ -19,6 +19,7 @@ function addEventHandlers(controlsDiv, tabId) {
     controlsDiv.find('#play').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'play'}, function(resp) {console.log('resp: ' + resp)});
         showPauseBtn(controlsDiv);
+        chrome.tabs.update(tabId, {selected: true});
     });
 
     controlsDiv.find('#next').click(function () {
