@@ -19,7 +19,6 @@ function addEventHandlers(controlsDiv, tabId) {
     controlsDiv.find('#play').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'play'}, function(resp) {console.log('resp: ' + resp)});
         showPauseBtn(controlsDiv);
-        chrome.tabs.update(tabId, {selected: true});
     });
 
     controlsDiv.find('#next').click(function () {
@@ -152,4 +151,10 @@ function sendMessagePrevNextAvailability(controlsDiv, tabId) {
             updatePrevNextAvailability(controlsDiv, resp);
         }
     );
+}
+
+function activate() {
+    chrome.tabs.get(tabId, function (tab) {
+        chrome.tabs.highlight({windowId: tab.windowId, tabs: tab.index}, null);
+    });
 }
