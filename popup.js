@@ -4,6 +4,16 @@ var sitesUrls = ['*://*.youtube.com/watch*', '*://soundcloud.com/*'];
 var result = [];
 
 
+function addSiteNameAndEventHandlers(controlsDiv, tabId) {
+    // set site's name data attribute (to start with)
+    chrome.tabs.sendMessage(tabId, {action: 'getName'}, function(resp) {
+        console.log('site name for ' + tabId + ': ' + resp.name)
+        controlsDiv.attr('data-site-name', resp.name);
+
+        addEventHandlers(controlsDiv, tabId);
+    });
+}
+
 function addEventHandlers(controlsDiv, tabId) {
     controlsDiv.find('#prev').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'prev'}, function(resp) {console.log('resp: ' + resp)});
@@ -19,6 +29,10 @@ function addEventHandlers(controlsDiv, tabId) {
     controlsDiv.find('#play').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'play'}, function(resp) {console.log('resp: ' + resp)});
         showPauseBtn(controlsDiv);
+
+        if(controlsDiv.attr('data-site-name') == 'sc') {
+            pauseAllBut(controlsDiv, 'sc');
+        }
     });
 
     controlsDiv.find('#next').click(function () {
@@ -37,12 +51,6 @@ function addEventHandlers(controlsDiv, tabId) {
     controlsDiv.find('#close').click(function () {
         chrome.tabs.remove(tabId);
         controlsDiv.hide();
-    });
-
-    // set site's name data attribute
-    chrome.tabs.sendMessage(tabId, {action: 'getName'}, function(resp) {
-        console.log('site name for ' + tabId + ': ' + resp.name)
-        controlsDiv.attr('data-site-name', resp.name);
     });
 }
 document.addEventListener('DOMContentLoaded', function () {
@@ -89,7 +97,7 @@ function addControls(tabs) {
         sendMessageIsPlaying(controlsDiv, tab.id);
         sendMessagePrevNextAvailability(controlsDiv, tab.id);
 
-        addEventHandlers(controlsDiv, tab.id);
+        addSiteNameAndEventHandlers(controlsDiv, tab.id);
 
         $('#main').append(controlsDiv);
         //templateDiv.after(controlsDiv);
@@ -165,16 +173,16 @@ function sendMessagePrevNextAvailability(controlsDiv, tabId) {
  * @param site's name ('yt', 'sc' etc)
  */
 function pauseAllBut(controlsDiv, site) {
-    $('.controlBar').each(function (cd) {
-        if(cd === controlsDiv) {
+    $('.controlBar').not('#template').each(function () {
+        if($(this).attr('id') == controlsDiv.attr('id')) {
             return;
         }
 
-        if(cd.attr('data-site-name') === site) {
+        if($(this).attr('data-site-name') != site) {
             return;
         }
 
-        showPlayBtn(cd);
+        showPlayBtn($(this));
     });
 }
 
