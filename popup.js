@@ -38,6 +38,12 @@ function addEventHandlers(controlsDiv, tabId) {
         chrome.tabs.remove(tabId);
         controlsDiv.hide();
     });
+
+    // set site's name data attribute
+    chrome.tabs.sendMessage(tabId, {action: 'getName'}, function(resp) {
+        console.log('site name for ' + tabId + ': ' + resp.name)
+        controlsDiv.attr('data-site-name', resp.name);
+    });
 }
 document.addEventListener('DOMContentLoaded', function () {
     getRelevantTabs(addControls);
@@ -151,6 +157,25 @@ function sendMessagePrevNextAvailability(controlsDiv, tabId) {
             updatePrevNextAvailability(controlsDiv, resp);
         }
     );
+}
+
+/**
+ * pause all sites but this one.
+ * @param controlsDiv
+ * @param site's name ('yt', 'sc' etc)
+ */
+function pauseAllBut(controlsDiv, site) {
+    $('.controlBar').each(function (cd) {
+        if(cd === controlsDiv) {
+            return;
+        }
+
+        if(cd.attr('data-site-name') === site) {
+            return;
+        }
+
+        showPlayBtn(cd);
+    });
 }
 
 function activate() {

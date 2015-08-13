@@ -8,6 +8,10 @@ Site.prototype.isIt = function () {
     throw new Error("Not implemented");
 };
 
+Site.prototype.getName = function () {
+    throw new Error("Not implemented");
+};
+
 Site.prototype.isPlaying = function () {
     throw new Error("Not implemented");
 };
@@ -49,6 +53,10 @@ var YouTube = function () {
 YouTube.prototype = Object.create(Site.prototype);
 YouTube.prototype.isIt = function () {
     return purl(location).attr('host').indexOf("youtube.com") >= 0;
+};
+
+YouTube.prototype.getName = function () {
+    return 'yt';
 };
 
 YouTube.prototype.isPlaying = function () {
@@ -107,6 +115,10 @@ var Soundcloud = function () {
 Soundcloud.prototype = Object.create(Site.prototype);
 Soundcloud.prototype.isIt = function () {
     return purl(location).attr('host').indexOf("soundcloud.com") >= 0;
+};
+
+Soundcloud.prototype.getName = function () {
+    return 'sc';
 };
 
 Soundcloud.prototype.isPlaying = function () {
@@ -198,6 +210,9 @@ chrome.runtime.onMessage.addListener(
             return;
         } else if (request.action == 'title') {
             sendResponse({title: site.getTitle()});
+            return;
+        } else if(request.action == 'getName') {
+            sendResponse({name: site.getName()});
             return;
         }
 
