@@ -110,6 +110,7 @@ YouTube.prototype.getTitle = function () {
     return $('#eow-title').attr('title');
 };
 
+//
 var Soundcloud = function () {
 };
 Soundcloud.prototype = Object.create(Site.prototype);
@@ -190,6 +191,86 @@ Soundcloud.prototype.controlBarHidden = function () {
     return $('.playControls').hasClass('m-visible') == false;
 };
 
+//
+var Mixcloud = function () {
+};
+Mixcloud.prototype = Object.create(Site.prototype);
+Mixcloud.prototype.isIt = function () {
+    return purl(location).attr('host').indexOf("mixcloud.com") >= 0;
+};
+
+Mixcloud.prototype.getName = function () {
+    return 'mx';
+};
+
+Mixcloud.prototype.isPlaying = function () {
+    if(this.controlBarHidden()) {
+        return false;
+    }
+
+    var btn = $(".playControl.playing");
+    if (btn.length >= 1) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+Mixcloud.prototype.play = function () {
+    $(".player-control").click();
+};
+
+Mixcloud.prototype.pause = function () {
+    $(".player-control").click();
+};
+
+Mixcloud.prototype.prev = function () {
+    $(".skipControl__previous").click();
+};
+
+Mixcloud.prototype.next = function () {
+    $(".skipControl__next").click();
+};
+
+Mixcloud.prototype.isPrevAvailable = function () {
+    if(this.controlBarHidden()) {
+        return false;
+    }
+
+    var el = $(".skipControl__previous");
+    if (el.length == 0) {
+        return false;
+    }
+    return !el.hasClass('disabled');
+};
+
+Mixcloud.prototype.isNextAvailable = function () {
+    if(this.controlBarHidden()) {
+        return false;
+    }
+
+    var el = $(".skipControl__next");
+    if (el.length == 0) {
+        return false;
+    }
+    return !el.css('disabled');
+};
+
+Mixcloud.prototype.replay = function () {
+    // there might not be a better way at all
+    this.next();
+    this.prev();
+};
+
+Mixcloud.prototype.getTitle = function () {
+    //return $(".soundTitle__title > span").html();
+    var title = $(document).find("title").text().replace(' | Free Listening on Mixcloud', '');
+    return title;
+};
+
+Mixcloud.prototype.controlBarHidden = function () {
+    return $('.playControls').hasClass('m-visible') == false;
+};
 
 var sites = [new YouTube(), new Soundcloud()];
 
