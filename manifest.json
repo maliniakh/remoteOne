@@ -20,6 +20,10 @@
       "js": [
         "lib/jquery-2.1.4.min.js",
         "lib/purl.js",
+        "sites/site.js",
+        "sites/youtube.js",
+        "sites/soundcloud.js",
+        "sites/mixcloud.js",
         "content-script.js"
       ],
       "matches": [
