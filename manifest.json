@@ -24,7 +24,8 @@
       ],
       "matches": [
         "https://www.youtube.com/*",
-        "https://soundcloud.com/*"
+        "https://soundcloud.com/*",
+        "https://www.mixcloud.com/*"
       ]
     }
   ]

@@ -204,15 +204,11 @@ Mixcloud.prototype.getName = function () {
 };
 
 Mixcloud.prototype.isPlaying = function () {
-    if(this.controlBarHidden()) {
+    var pauseEl = $('.player-control.pause-state');
+    if(pauseEl.length == 0) {
         return false;
-    }
-
-    var btn = $(".playControl.playing");
-    if (btn.length >= 1) {
-        return true;
     } else {
-        return false;
+        return true;
     }
 };
 
@@ -224,55 +220,38 @@ Mixcloud.prototype.pause = function () {
     $(".player-control").click();
 };
 
-Mixcloud.prototype.prev = function () {
-    $(".skipControl__previous").click();
-};
+//Mixcloud.prototype.prev = function () {
+//    $(".skipControl__previous").click();
+//};
 
-Mixcloud.prototype.next = function () {
-    $(".skipControl__next").click();
-};
+//Mixcloud.prototype.next = function () {
+//    $(".skipControl__next").click();
+//};
 
 Mixcloud.prototype.isPrevAvailable = function () {
-    if(this.controlBarHidden()) {
-        return false;
-    }
-
-    var el = $(".skipControl__previous");
-    if (el.length == 0) {
-        return false;
-    }
-    return !el.hasClass('disabled');
+    // todo:
+    return false;
 };
 
 Mixcloud.prototype.isNextAvailable = function () {
-    if(this.controlBarHidden()) {
-        return false;
-    }
-
-    var el = $(".skipControl__next");
-    if (el.length == 0) {
-        return false;
-    }
-    return !el.css('disabled');
+    // todo:
+    return false;
 };
 
 Mixcloud.prototype.replay = function () {
     // there might not be a better way at all
+    // todo:
     this.next();
     this.prev();
 };
 
 Mixcloud.prototype.getTitle = function () {
     //return $(".soundTitle__title > span").html();
-    var title = $(document).find("title").text().replace(' | Free Listening on Mixcloud', '');
+    var title = $('.player-cloudcast-title').text() + ' by ' + $('.player-cloudcast-author-link').text();
     return title;
 };
 
-Mixcloud.prototype.controlBarHidden = function () {
-    return $('.playControls').hasClass('m-visible') == false;
-};
-
-var sites = [new YouTube(), new Soundcloud()];
+var sites = [new YouTube(), new Soundcloud(), new Mixcloud()];
 
 var site = $.grep(sites, function (st, i) {
     return st.isIt();
