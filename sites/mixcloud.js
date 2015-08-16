@@ -54,7 +54,6 @@ Mixcloud.prototype.replay = function () {
 };
 
 Mixcloud.prototype.getTitle = function () {
-    //return $(".soundTitle__title > span").html();
     var title = $('.player-cloudcast-title').text() + ' by ' + $('.player-cloudcast-author-link').text();
     return title;
 };

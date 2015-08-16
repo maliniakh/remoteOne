@@ -24,12 +24,14 @@
         "sites/youtube.js",
         "sites/soundcloud.js",
         "sites/mixcloud.js",
+        "sites/spotify.js",
         "content-script.js"
       ],
       "matches": [
         "https://www.youtube.com/*",
         "https://soundcloud.com/*",
-        "https://www.mixcloud.com/*"
+        "https://www.mixcloud.com/*",
+        "https://play.spotify.com/*"
       ]
     }
   ]

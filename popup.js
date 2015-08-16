@@ -1,9 +1,10 @@
 "use strict"
 
 var sitesUrls =
-    ['*://*.youtube.com/watch*',
-    '*://soundcloud.com/*',
-    '*://*.mixcloud.com/*'];
+        ['*://*.youtube.com/watch*',
+        '*://soundcloud.com/*',
+        '*://*.mixcloud.com/*',
+        '*://play.spotify.com/*'];
 var result = [];
 
 

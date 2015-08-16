@@ -1,6 +1,6 @@
 "use strict";
 
-var sites = [new YouTube(), new Soundcloud(), new Mixcloud()];
+var sites = [new YouTube(), new Soundcloud(), new Mixcloud(), new Spotify()];
 
 var site = $.grep(sites, function (st, i) {
     return st.isIt();
