@@ -1,6 +1,7 @@
 "use strict";
 
-var appPlayerFrm = $('#app-player');
+// todo: make it work, had some issues when using it that way before
+var appPlayerFrm = $('#app-player').contents();
 
 var Spotify = function () {
 };
@@ -18,7 +19,7 @@ Spotify.prototype.isPlaying = function () {
         return false;
     }
 
-    var btn = appPlayerFrm.find("#play-pause");
+    var btn = $('#app-player').contents().find("#play-pause");
     if (btn.hasClass('playing')) {
         return true;
     } else {
@@ -27,19 +28,19 @@ Spotify.prototype.isPlaying = function () {
 };
 
 Spotify.prototype.play = function () {
-    appPlayerFrm.find("#play-pause").click();
+    $('#app-player').contents().find("#play-pause").click();
 };
 
 Spotify.prototype.pause = function () {
-    appPlayerFrm.find("#play-pause").click();
+    $('#app-player').contents().find("#play-pause").click();
 };
 
 Spotify.prototype.prev = function () {
-    appPlayerFrm.find("#previous").click();
+    $('#app-player').contents().find("#previous").click();
 };
 
 Spotify.prototype.next = function () {
-    appPlayerFrm.find("#next").click();
+    $('#app-player').contents().find("#next").click();
 };
 
 Spotify.prototype.isPrevAvailable = function () {
@@ -47,10 +48,11 @@ Spotify.prototype.isPrevAvailable = function () {
         return false;
     }
 
-    var el = $(".skipControl__previous");
+    var el = $('#app-player').contents().find('#previous');
     if (el.length == 0) {
         return false;
     }
+
     return !el.hasClass('disabled');
 };
 
@@ -59,11 +61,11 @@ Spotify.prototype.isNextAvailable = function () {
         return false;
     }
 
-    var el = $(".skipControl__next");
+    var el = $('#app-player').contents().find("#next");
     if (el.length == 0) {
         return false;
     }
-    return !el.css('disabled');
+    return !el.hasClass('disabled');
 };
 
 Spotify.prototype.replay = function () {
@@ -73,9 +75,7 @@ Spotify.prototype.replay = function () {
 };
 
 Spotify.prototype.getTitle = function () {
-    var title = appPlayerFrm.contents().find('#track-name > a').text() + ' - ' +
-        appPlayerFrm.contents().find('#track-artist > a').text()
-    return title;
+    return $('#app-player').contents().find('#track-name > a').text() + ' - ' + $('#app-player').contents().find('#track-artist > a').text()
 };
 
 Spotify.prototype.controlBarHidden = function () {
