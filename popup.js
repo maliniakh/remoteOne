@@ -11,7 +11,7 @@ var result = [];
 function addSiteNameAndEventHandlers(controlsDiv, tabId) {
     // set site's name data attribute (to start with)
     chrome.tabs.sendMessage(tabId, {action: 'getName'}, function(resp) {
-        console.log('site name for ' + tabId + ': ' + resp.name)
+        console.log('site name for ' + tabId + ': ' + resp.name);
         controlsDiv.attr('data-site-name', resp.name);
 
         addEventHandlers(controlsDiv, tabId);
@@ -119,9 +119,17 @@ function showPlayBtn(controlsDiv) {
     controlsDiv.find('#pause').hide();
 }
 
+function updatePlayPause(controlsDiv, isPlaying) {
+    if(isPlaying) {
+        showPauseBtn(controlsDiv);
+    } else {
+        showPlayBtn(controlsDiv);
+    }
+}
+
 function updatePrevNextAvailability(controlsDiv, status) {
     var prevEl = controlsDiv.find('#prev');
-    if(status.prev) {
+    if(status.prevAvailable) {
         prevEl.addClass('enabled');
         prevEl.removeClass('disabled');
     } else {
@@ -130,7 +138,7 @@ function updatePrevNextAvailability(controlsDiv, status) {
     }
 
     var nextEl = controlsDiv.find('#next');
-    if(status.next) {
+    if(status.nextAvailable) {
         nextEl.removeClass('disabled');
         nextEl.addClass('enabled')
     } else {
@@ -149,14 +157,10 @@ function sendMessageTitle(controlsDiv, tabId) {
 function sendMessageIsPlaying(controlsDiv, tabId) {
     chrome.tabs.sendMessage(tabId, {action: 'isPlaying'},
         function(resp) {
-            var isPlaying = resp.resp;
+            var isPlaying = resp.playing;
             console.log('tab ' + tabId + ' is playing: ' + isPlaying);
 
-            if(isPlaying) {
-                showPauseBtn(controlsDiv);
-            } else {
-                showPlayBtn(controlsDiv);
-            }
+            updatePlayPause(controlsDiv, isPlaying);
         }
     );
 }
@@ -188,6 +192,28 @@ function pauseAllBut(controlsDiv, site) {
 
         showPlayBtn($(this));
     });
+}
+
+chrome.runtime.onMessage.addListener(
+    function(req, sender, sendResponse) {
+        console.log("got message from: " + sender.tab.url + '\t' + JSON.stringify(req));
+        if (req.title) {
+            getControlsDiv(sender.tab.id).find('.title').text(req.title);
+        }
+
+        if(req.prevAvailable != null || req.nextAvailable != null) {
+            updatePrevNextAvailability(getControlsDiv(sender.tab.id), req);
+        }
+
+        if(req.playing != null) {
+            updatePlayPause(getControlsDiv(sender.tab.id), req.playing);
+        }
+
+        sendResponse({resp: 'OK'});
+    });
+
+function getControlsDiv(tabId) {
+    return $('[data-tabId=' + tabId + ']');
 }
 
 function activate() {

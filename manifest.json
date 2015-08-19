@@ -20,6 +20,8 @@
       "js": [
         "lib/jquery-2.1.4.min.js",
         "lib/purl.js",
+        "lib/mutation-summary.js",
+        "lib/jquery.mutation-summary.js",
         "sites/site.js",
         "sites/youtube.js",
         "sites/soundcloud.js",

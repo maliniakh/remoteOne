@@ -1,7 +1,22 @@
 "use strict";
 
 // todo: make it work, had some issues when using it that way before
-var appPlayerFrm = $('#app-player').contents();
+//var appPlayerFrm = $('#app-player').contents();
+
+$('#app-player').contents().mutationSummary("connect", callback, [{
+    all: true
+}]);
+
+//$('#app-player').contents().find("#cover-art").mutationSummary("connect", callback, [{
+//    all: true
+//}]);
+
+function callback(summaries) {
+    var firstSummary = summaries[0],
+        $firstElement = $(firstSummary.added[0]);
+
+    console.log('mutation: ' + $firstElement);
+}
 
 var Spotify = function () {
 };

@@ -6,16 +6,18 @@ var site = $.grep(sites, function (st, i) {
     return st.isIt();
 })[0];
 
+site.init();
+
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
         console.log('request.action: ' + request.action);
 
         if (request.action == 'isPlaying') {
-            sendResponse({resp: site.isPlaying()});
+            sendResponse({playing: site.isPlaying()});
             return;
         } else if (request.action == 'prevNextAvailability') {
-            sendResponse({prev: site.isPrevAvailable(), next: site.isNextAvailable()});
+            sendResponse({prevAvailable: site.isPrevAvailable(), nextAvailable: site.isNextAvailable()});
             return;
         } else if (request.action == 'title') {
             sendResponse({title: site.getTitle()});
@@ -40,4 +42,5 @@ chrome.runtime.onMessage.addListener(
         }
 
         sendResponse({resp: 'ok'});
-    });
+    }
+);

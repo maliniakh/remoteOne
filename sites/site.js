@@ -4,6 +4,9 @@ function Site() {
     throw new Error("Abstract class")
 }
 
+Site.prototype.init = function () {
+};
+
 Site.prototype.isIt = function () {
     throw new Error("Not implemented");
 };
