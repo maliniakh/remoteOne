@@ -22,33 +22,33 @@ function addEventHandlers(controlsDiv, tabId) {
     controlsDiv.find('#prev').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'prev'}, function(resp) {console.log('resp: ' + resp)});
         chrome.tabs.sendMessage(tabId, {action: 'prevNextAvailability'}, function(resp) {updatePrevNextAvailability(controlsDiv,resp)});
-        sendMessageTitle(controlsDiv, tabId);
+        //sendMessageTitle(controlsDiv, tabId);
     });
 
     controlsDiv.find('#pause').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'pause'}, function(resp) {console.log('resp: ' + resp)});
-        showPlayBtn(controlsDiv);
+        //showPlayBtn(controlsDiv);
     });
 
     controlsDiv.find('#play').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'play'}, function(resp) {console.log('resp: ' + resp)});
-        showPauseBtn(controlsDiv);
+        //showPauseBtn(controlsDiv);
 
-        if(controlsDiv.attr('data-site-name') == 'sc') {
-            pauseAllBut(controlsDiv, 'sc');
-        }
+        //if(controlsDiv.attr('data-site-name') == 'sc') {
+        //    pauseAllBut(controlsDiv, 'sc');
+        //}
     });
 
     controlsDiv.find('#next').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'next'}, function(resp) {console.log('resp: ' + resp)});
         chrome.tabs.sendMessage(tabId, {action: 'prevNextAvailability'}, function(resp) {updatePrevNextAvailability(controlsDiv,resp)});
-        sendMessageTitle(controlsDiv, tabId);
+        //sendMessageTitle(controlsDiv, tabId);
     });
 
     controlsDiv.find('#replay').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'replay'}, function(resp) {
             console.log('resp: ' + resp)
-            showPauseBtn(controlsDiv);
+            //showPauseBtn(controlsDiv);
         });
     });
 

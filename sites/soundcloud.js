@@ -1,41 +1,16 @@
 "use strict";
 
-//$('.playbackSoundBadge__title.sc-truncate').mutationSummary("connect", callback, [{
-//    all: true
-//}]);
-//
-//function callback(summaries) {
-//    var firstSummary = summaries[0],
-//        $firstElement = $(firstSummary.attributeChanged);
-//
-//    console.log('mutation: ' + $firstElement);
-//}
-
-
-//observer.observe(document.querySelector('.playbackSoundBadge__title.sc-truncate'), {subtree: true, childList:true, attributes: true, characterData: true});
-
-
-//var divElement = document.createElement('div');
-//divElement.innerHTML = 'div element';
-//document.querySelector('body').appendChild(divElement);
-
-function sendTitle(title) {
-    chrome.runtime.sendMessage({title: title});
-}
-
-function sendControlsState(state) {
-    chrome.runtime.sendMessage(state);
-}
-
 var Soundcloud = function () {
 };
 
 Soundcloud.prototype = Object.create(Site.prototype);
 
 Soundcloud.prototype.init = function () {
+    var instance = new Soundcloud();
+
     // updating titles
     new MutationObserver(function(mutations) {
-            sendTitle(new Soundcloud().getTitle());
+            instance.sendTitle(new Soundcloud().getTitle());
         }
     ).observe(document.querySelector('.playControls__soundBadge'),
         //attributeFilter: ['title'], subtree: true, childList:true, attributes: true, characterData: true
@@ -43,8 +18,7 @@ Soundcloud.prototype.init = function () {
 
     // updating buttons
     new MutationObserver(function(mutations) {
-        var instance = new Soundcloud();
-            sendControlsState(
+            instance.sendControlsState(
                 {   playing: instance.isPlaying(),
                     prevAvailable: instance.isPrevAvailable(),
                     nextAvailable: instance.isNextAvailable()
