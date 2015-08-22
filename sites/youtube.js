@@ -3,6 +3,31 @@
 var YouTube = function () {
 };
 YouTube.prototype = Object.create(Site.prototype);
+
+YouTube.prototype.init = function () {
+    var instance = new YouTube();
+
+    // updating titles
+    new MutationObserver(function(mutations) {
+            instance.sendTitle(instance.getTitle());
+        }
+    ).observe(document.querySelector('.ytp-chrome-controls'),
+        //attributeFilter: ['title'], subtree: true, childList:true, attributes: true, characterData: true
+        {subtree: true, attributes:true});
+
+    // updating buttons
+    new MutationObserver(function(mutations) {
+            instance.sendControlsState(
+                {   playing: instance.isPlaying(),
+                    prevAvailable: instance.isPrevAvailable(),
+                    nextAvailable: instance.isNextAvailable()
+                });
+        }
+    ).observe(document.querySelector('.ytp-chrome-controls'),
+        {subtree: true, attributes: true});
+    //{attributeFilter: ['class'], subtree: true, attributes: true});
+};
+
 YouTube.prototype.isIt = function () {
     return purl(location).attr('host').indexOf("youtube.com") >= 0;
 };
