@@ -3,24 +3,43 @@
 // todo: make it work, had some issues when using it that way before
 //var appPlayerFrm = $('#app-player').contents();
 
-$('#app-player').contents().mutationSummary("connect", callback, [{
-    all: true
-}]);
-
-//$('#app-player').contents().find("#cover-art").mutationSummary("connect", callback, [{
-//    all: true
-//}]);
-
-function callback(summaries) {
-    var firstSummary = summaries[0],
-        $firstElement = $(firstSummary.added[0]);
-
-    console.log('mutation: ' + $firstElement);
-}
-
 var Spotify = function () {
 };
 Spotify.prototype = Object.create(Site.prototype);
+
+Spotify.prototype.registerMutationObservers = function () {
+    var instance = new Spotify();
+
+    $('#app-player').ready(function () {
+        // updating titles
+
+
+        $('#track-name').waitUntilExists(function() {
+            //var iframe = $('#app-player').contents()[0];
+
+            console.log('#track-name just appeared');
+
+            new MutationObserver(function (mutations) {
+                    instance.sendTitle(instance.getTitle());
+                    console.log('title changed event');
+                }
+            ).observe($('#app-player').contents().find("#track-name-wrapper")[0], {subtree: true, attributes: true, childList: true});
+
+            // updating buttons
+            new MutationObserver(function (mutations) {
+                    instance.sendControlsState(
+                        {
+                            playing: instance.isPlaying(),
+                            prevAvailable: instance.isPrevAvailable(),
+                            nextAvailable: instance.isNextAvailable()
+                        });
+                    console.log('controls changed event');
+                }
+            ).observe($('#app-player').contents().find("#controls")[0], {subtree: true, attributes: true});
+        }, true, '#app-player');
+    });
+};
+
 Spotify.prototype.isIt = function () {
     return purl(location).attr('host').indexOf("play.spotify.com") >= 0;
 };

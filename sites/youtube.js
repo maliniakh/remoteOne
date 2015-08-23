@@ -4,28 +4,25 @@ var YouTube = function () {
 };
 YouTube.prototype = Object.create(Site.prototype);
 
-YouTube.prototype.init = function () {
+YouTube.prototype.registerMutationObservers = function () {
     var instance = new YouTube();
 
     // updating titles
-    new MutationObserver(function(mutations) {
+    var el = $('.ytp-chrome-controls')[0];
+    new MutationObserver(function() {
             instance.sendTitle(instance.getTitle());
         }
-    ).observe(document.querySelector('.ytp-chrome-controls'),
-        //attributeFilter: ['title'], subtree: true, childList:true, attributes: true, characterData: true
-        {subtree: true, attributes:true});
+    ).observe(el, {subtree: true, attributes:true});
 
     // updating buttons
-    new MutationObserver(function(mutations) {
+    new MutationObserver(function() {
             instance.sendControlsState(
                 {   playing: instance.isPlaying(),
                     prevAvailable: instance.isPrevAvailable(),
                     nextAvailable: instance.isNextAvailable()
                 });
         }
-    ).observe(document.querySelector('.ytp-chrome-controls'),
-        {subtree: true, attributes: true});
-    //{attributeFilter: ['class'], subtree: true, attributes: true});
+    ).observe(el, {subtree: true, attributes: true});
 };
 
 YouTube.prototype.isIt = function () {

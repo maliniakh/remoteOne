@@ -5,7 +5,7 @@ var Soundcloud = function () {
 
 Soundcloud.prototype = Object.create(Site.prototype);
 
-Soundcloud.prototype.init = function () {
+Soundcloud.prototype.registerMutationObservers = function () {
     var instance = new Soundcloud();
 
     // updating titles

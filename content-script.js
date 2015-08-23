@@ -6,7 +6,7 @@ var site = $.grep(sites, function (st, i) {
     return st.isIt();
 })[0];
 
-site.init();
+site.registerMutationObservers();
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
