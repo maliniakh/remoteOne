@@ -3,6 +3,29 @@
 var Mixcloud = function () {
 };
 Mixcloud.prototype = Object.create(Site.prototype);
+
+Mixcloud.prototype.registerMutationObservers = function () {
+    var instance = new Mixcloud();
+
+    // updating titles
+    var el = $('.ytp-chrome-controls')[0];
+    new MutationObserver(function() {
+            instance.sendTitle(instance.getTitle());
+        }
+    ).observe(el, {subtree: true, attributes:true});
+
+    // updating buttons
+    new MutationObserver(function() {
+            instance.sendControlsState(
+                {   playing: instance.isPlaying(),
+                    prevAvailable: instance.isPrevAvailable(),
+                    nextAvailable: instance.isNextAvailable()
+                });
+        }
+    ).observe(el, {subtree: true, attributes: true});
+};
+
+
 Mixcloud.prototype.isIt = function () {
     return purl(location).attr('host').indexOf("mixcloud.com") >= 0;
 };
