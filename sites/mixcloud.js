@@ -8,21 +8,23 @@ Mixcloud.prototype.registerMutationObservers = function () {
     var instance = new Mixcloud();
 
     // updating titles
-    var el = $('.ytp-chrome-controls')[0];
-    new MutationObserver(function() {
+    var mo = new MutationObserver(function () {
             instance.sendTitle(instance.getTitle());
         }
-    ).observe(el, {subtree: true, attributes:true});
+    );
+    mo.observe($('.cloudcast-title')[0], {subtree: true, attributes: true});
+    mo.observe($('.player-cloudcast-title')[0], {subtree: true, attributes: true});
 
     // updating buttons
-    new MutationObserver(function() {
+    new MutationObserver(function () {
             instance.sendControlsState(
-                {   playing: instance.isPlaying(),
+                {
+                    playing: instance.isPlaying(),
                     prevAvailable: instance.isPrevAvailable(),
                     nextAvailable: instance.isNextAvailable()
                 });
         }
-    ).observe(el, {subtree: true, attributes: true});
+    ).observe($('span.play-button')[0], {subtree: true, attributes: true});
 };
 
 
