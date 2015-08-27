@@ -112,6 +112,10 @@ Spotify.prototype.getTitle = function () {
     return $('#app-player').contents().find('#track-name > a').text() + ' - ' + $('#app-player').contents().find('#track-artist > a').text()
 };
 
+Spotify.prototype.getThumbnail = function () {
+    return 'img/site/sf.ico';
+};
+
 Spotify.prototype.controlBarHidden = function () {
     return false;
 };

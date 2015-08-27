@@ -101,6 +101,10 @@ Soundcloud.prototype.getTitle = function () {
     return title;
 };
 
+Soundcloud.prototype.getThumbnail = function () {
+    return 'img/site/sc.png';
+};
+
 Soundcloud.prototype.controlBarHidden = function () {
     return $('.playControls').hasClass('m-visible') == false;
 };

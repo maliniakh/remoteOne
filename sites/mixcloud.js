@@ -82,3 +82,7 @@ Mixcloud.prototype.getTitle = function () {
     var title = $('.player-cloudcast-title').text() + ' by ' + $('.player-cloudcast-author-link').text();
     return title;
 };
+
+Mixcloud.prototype.getThumbnail = function () {
+    return 'img/site/mx.png';
+};

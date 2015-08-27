@@ -83,3 +83,7 @@ YouTube.prototype.replay = function () {
 YouTube.prototype.getTitle = function () {
     return $('#eow-title').attr('title');
 };
+
+YouTube.prototype.getThumbnail = function () {
+    return 'img/site/yt.png';
+};
