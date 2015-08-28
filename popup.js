@@ -97,6 +97,7 @@ function addControls(tabs) {
         controlsDiv.css('display', '');
 
         // title & others
+        sendMessageThumbnail(controlsDiv, tab.id);
         sendMessageTitle(controlsDiv, tab.id);
         sendMessageIsPlaying(controlsDiv, tab.id);
         sendMessagePrevNextAvailability(controlsDiv, tab.id);
@@ -173,6 +174,15 @@ function sendMessagePrevNextAvailability(controlsDiv, tabId) {
             updatePrevNextAvailability(controlsDiv, resp);
         }
     );
+}
+
+function sendMessageThumbnail(controlsDiv, tabId) {
+    chrome.tabs.sendMessage(tabId, {action: 'getThumbnail'},
+        function(resp) {
+            console.log('thumbnail path (' + tabId + '): ' + resp.prev + "/" + resp.next);
+
+            controlsDiv.find('.thumbnail img').attr('src', resp.thumbnail);
+        });
 }
 
 /**

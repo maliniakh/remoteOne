@@ -25,7 +25,11 @@ chrome.runtime.onMessage.addListener(
         } else if(request.action == 'getName') {
             sendResponse({name: site.getName()});
             return;
+        } else if(request.action == 'getThumbnail') {
+            sendResponse({thumbnail: site.getThumbnail()});
+            return;
         }
+
 
         if (request.action == 'play') {
             site.play();

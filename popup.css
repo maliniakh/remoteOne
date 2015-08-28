@@ -43,12 +43,17 @@ ul li {
 .buttons {
 	border: dashed 1px black;
 	display: inline-block;
-
-	/*margin: 0 auto;*/
-	/*width: 80%;*/
 }
 
+.thumbnail {
+    float: left;
+}
 
+.thumbnail img {
+    height: auto;
+    width: auto;
+    max-width: 64px;
+}
 
 
 
