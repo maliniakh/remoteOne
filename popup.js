@@ -1,10 +1,12 @@
 "use strict"
 
+// adding trailing / will not work
 var sitesUrls =
         ['*://*.youtube.com/watch*',
         '*://soundcloud.com/*',
         '*://*.mixcloud.com/*',
-        '*://play.spotify.com/*'];
+        '*://play.spotify.com/*',
+        '*://mynoise.net/NoiseMachines/*'];
 var result = [];
 
 
@@ -69,15 +71,17 @@ function getRelevantTabs(callback) {
             url: url
         };
 
-        chrome.tabs.query(qi, function (tabs) {
-            console.log("tabs for " + url + ": " + tabs.length);
-            //result = $.merge(result, tabs);
-            callback(tabs)
-        });
+        getRelevantTabsQuery(qi, callback);
     };
 
     console.log("all relevant tabs: " + result.length);
-    //return result;
+}
+
+function getRelevantTabsQuery(qi, callback) {
+    chrome.tabs.query(qi, function (tabs) {
+        console.log("tabs for " + qi.url + ": " + tabs.length);
+        callback(tabs);
+    });
 }
 
 function addControls(tabs) {

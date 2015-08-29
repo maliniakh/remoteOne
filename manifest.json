@@ -20,21 +20,20 @@
       "js": [
         "lib/jquery-2.1.4.min.js",
         "lib/purl.js",
-        "lib/jquery.waitForElement.js",
-        "lib/mutation-summary.js",
-        "lib/jquery.mutation-summary.js",
         "sites/site.js",
         "sites/youtube.js",
         "sites/soundcloud.js",
         "sites/mixcloud.js",
         "sites/spotify.js",
+        "sites/mynoise.js",
         "content-script.js"
       ],
       "matches": [
         "https://www.youtube.com/*",
         "https://soundcloud.com/*",
         "https://www.mixcloud.com/*",
-        "https://play.spotify.com/*"
+        "https://play.spotify.com/*",
+        "http://mynoise.net/NoiseMachines/*"
       ]
     }
   ]
