@@ -38,7 +38,7 @@ Mixcloud.prototype.getName = function () {
 
 Mixcloud.prototype.isPlaying = function () {
     var pauseEl = $('.player-control.pause-state');
-    if(pauseEl.length == 0) {
+    if (pauseEl.length == 0) {
         return false;
     } else {
         return true;

@@ -14,7 +14,7 @@ Spotify.prototype.registerMutationObservers = function () {
         // updating titles
 
 
-        $('#track-name').waitUntilExists(function() {
+        $('#track-name').waitUntilExists(function () {
             //var iframe = $('#app-player').contents()[0];
 
             console.log('#track-name just appeared');
@@ -23,7 +23,11 @@ Spotify.prototype.registerMutationObservers = function () {
                     instance.sendTitle(instance.getTitle());
                     console.log('title changed event');
                 }
-            ).observe($('#app-player').contents().find("#track-name-wrapper")[0], {subtree: true, attributes: true, childList: true});
+            ).observe($('#app-player').contents().find("#track-name-wrapper")[0], {
+                    subtree: true,
+                    attributes: true,
+                    childList: true
+                });
 
             // updating buttons
             new MutationObserver(function (mutations) {
@@ -49,7 +53,7 @@ Spotify.prototype.getName = function () {
 };
 
 Spotify.prototype.isPlaying = function () {
-    if(this.controlBarHidden()) {
+    if (this.controlBarHidden()) {
         return false;
     }
 
@@ -78,7 +82,7 @@ Spotify.prototype.next = function () {
 };
 
 Spotify.prototype.isPrevAvailable = function () {
-    if(this.controlBarHidden()) {
+    if (this.controlBarHidden()) {
         return false;
     }
 
@@ -91,7 +95,7 @@ Spotify.prototype.isPrevAvailable = function () {
 };
 
 Spotify.prototype.isNextAvailable = function () {
-    if(this.controlBarHidden()) {
+    if (this.controlBarHidden()) {
         return false;
     }
 

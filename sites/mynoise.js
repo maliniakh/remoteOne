@@ -8,9 +8,10 @@ MyNoise.prototype.registerMutationObservers = function () {
     var instance = new MyNoise();
 
     // updating buttons
-    new MutationObserver(function(mutations) {
+    new MutationObserver(function (mutations) {
             instance.sendControlsState(
-                {   playing: instance.isPlaying(),
+                {
+                    playing: instance.isPlaying(),
                     prevAvailable: instance.isPrevAvailable(),
                     nextAvailable: instance.isNextAvailable()
                 });
@@ -30,7 +31,7 @@ MyNoise.prototype.getName = function () {
 
 MyNoise.prototype.isPlaying = function () {
     var muteEl = $('#muteLabel');
-    if(muteEl.attr('aria-pressed') == 'true') {
+    if (muteEl.attr('aria-pressed') == 'true') {
         return false;
     } else {
         return true;

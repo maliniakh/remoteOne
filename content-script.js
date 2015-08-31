@@ -22,10 +22,10 @@ chrome.runtime.onMessage.addListener(
         } else if (request.action == 'title') {
             sendResponse({title: site.getTitle()});
             return;
-        } else if(request.action == 'getName') {
+        } else if (request.action == 'getName') {
             sendResponse({name: site.getName()});
             return;
-        } else if(request.action == 'getThumbnail') {
+        } else if (request.action == 'getThumbnail') {
             sendResponse({thumbnail: site.getThumbnail()});
             return;
         }

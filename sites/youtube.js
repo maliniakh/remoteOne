@@ -9,15 +9,16 @@ YouTube.prototype.registerMutationObservers = function () {
 
     // updating titles
     var el = $('.ytp-chrome-controls')[0];
-    new MutationObserver(function() {
+    new MutationObserver(function () {
             instance.sendTitle(instance.getTitle());
         }
-    ).observe(el, {subtree: true, attributes:true});
+    ).observe(el, {subtree: true, attributes: true});
 
     // updating buttons
-    new MutationObserver(function() {
+    new MutationObserver(function () {
             instance.sendControlsState(
-                {   playing: instance.isPlaying(),
+                {
+                    playing: instance.isPlaying(),
                     prevAvailable: instance.isPrevAvailable(),
                     nextAvailable: instance.isNextAvailable()
                 });

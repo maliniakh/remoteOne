@@ -9,17 +9,18 @@ Soundcloud.prototype.registerMutationObservers = function () {
     var instance = new Soundcloud();
 
     // updating titles
-    new MutationObserver(function(mutations) {
+    new MutationObserver(function (mutations) {
             instance.sendTitle(new Soundcloud().getTitle());
         }
     ).observe(document.querySelector('.playControls__soundBadge'),
         //attributeFilter: ['title'], subtree: true, childList:true, attributes: true, characterData: true
-        {subtree: true, childList:true});
+        {subtree: true, childList: true});
 
     // updating buttons
-    new MutationObserver(function(mutations) {
+    new MutationObserver(function (mutations) {
             instance.sendControlsState(
-                {   playing: instance.isPlaying(),
+                {
+                    playing: instance.isPlaying(),
                     prevAvailable: instance.isPrevAvailable(),
                     nextAvailable: instance.isNextAvailable()
                 });
@@ -37,7 +38,7 @@ Soundcloud.prototype.getName = function () {
 };
 
 Soundcloud.prototype.isPlaying = function () {
-    if(this.controlBarHidden()) {
+    if (this.controlBarHidden()) {
         return false;
     }
 
@@ -66,7 +67,7 @@ Soundcloud.prototype.next = function () {
 };
 
 Soundcloud.prototype.isPrevAvailable = function () {
-    if(this.controlBarHidden()) {
+    if (this.controlBarHidden()) {
         return false;
     }
 
@@ -78,7 +79,7 @@ Soundcloud.prototype.isPrevAvailable = function () {
 };
 
 Soundcloud.prototype.isNextAvailable = function () {
-    if(this.controlBarHidden()) {
+    if (this.controlBarHidden()) {
         return false;
     }
 
