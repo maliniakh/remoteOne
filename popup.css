@@ -17,6 +17,10 @@ body {
     -webkit-filter: opacity(35%);
 }
 
+.clickable:not(.disabled) {
+    cursor: pointer;
+}
+
 div {
     /*border: dashed 1px black;*/
 }
@@ -97,7 +101,7 @@ div {
     max-height: 32px;
 }
 
-.title {
+.titleDiv {
     /*padding-top: 3px;*/
     margin-top: 3px;
 }
