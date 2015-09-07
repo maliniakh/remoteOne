@@ -8,7 +8,9 @@ var sitesUrls =
         '*://play.spotify.com/*',
         '*://mynoise.net/NoiseMachines/*'];
 var result = [];
-
+$( document ).ready(function() {
+    $('.info').popup({content: $('#popup')});
+});
 
 function addSiteNameAndEventHandlers(controlsDiv, tabId) {
     // set site's name data attribute (to start with)
