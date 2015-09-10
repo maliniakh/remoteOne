@@ -9,7 +9,8 @@ var sitesUrls =
         '*://mynoise.net/NoiseMachines/*'];
 var result = [];
 $( document ).ready(function() {
-    $('.info').popup({content: $('#popup')});
+    $('.info').popup({content: $('#popup'), beforeOpen: beforePopupOpen, beforeClose: beforePopupClose});
+
 });
 
 function addSiteNameAndEventHandlers(controlsDiv, tabId) {
@@ -243,6 +244,16 @@ chrome.runtime.onMessage.addListener(
 
 function getControlsDiv(tabId) {
     return $('[data-tabId=' + tabId + ']');
+}
+
+function beforePopupOpen() {
+    $('body').css('min-height', $('#popup').height() + 200 + 'px');
+    $('body').css('min-width', $('#popup').width() + 100 + 'px');
+}
+
+function beforePopupClose() {
+    $('body').css('min-height', '');
+    $('body').css('min-width', '');
 }
 
 function activate() {
