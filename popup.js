@@ -11,6 +11,11 @@ var result = [];
 $( document ).ready(function() {
     $('.info').popup({content: $('#popup'), beforeOpen: beforePopupOpen, beforeClose: beforePopupClose});
 
+    $('body').on('click', 'a', function(){
+        chrome.tabs.create({url: $(this).attr('href')});
+        return false;
+    });
+
 });
 
 function addSiteNameAndEventHandlers(controlsDiv, tabId) {

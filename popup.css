@@ -117,6 +117,14 @@ div {
     max-height: 22px;
 }
 
+.popup {
+    text-align: center;
+}
+
+.popup p {
+    margin-bottom: 5px;
+}
+
 
 
 
