@@ -82,6 +82,7 @@ div {
     border-bottom: solid 1px gray;
     text-align: center;
     padding-bottom: 3px;
+    font-size: 0;
 }
 
 .thumbnail {
@@ -99,6 +100,17 @@ div {
     width: auto;
     max-width: 32px;
     max-height: 32px;
+    margin: 3px;
+}
+
+.buttons div {
+    display: inline-block;
+    border-radius: 5px;
+    transition: .15s;
+}
+
+.buttons div:hover {
+    background-color: #d8d8d8;
 }
 
 .titleDiv {
