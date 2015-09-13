@@ -29,7 +29,7 @@ function addSiteNameAndEventHandlers(controlsDiv, tabId) {
 }
 
 function addEventHandlers(controlsDiv, tabId) {
-    controlsDiv.find('#prev').click(function () {
+    controlsDiv.find('.prev').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'prev'}, function (resp) {
             console.log('resp: ' + resp)
         });
@@ -39,14 +39,14 @@ function addEventHandlers(controlsDiv, tabId) {
         //sendMessageTitle(controlsDiv, tabId);
     });
 
-    controlsDiv.find('#pause').click(function () {
+    controlsDiv.find('.pause').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'pause'}, function (resp) {
             console.log('resp: ' + resp)
         });
         //showPlayBtn(controlsDiv);
     });
 
-    controlsDiv.find('#play').click(function () {
+    controlsDiv.find('.play').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'play'}, function (resp) {
             console.log('resp: ' + resp)
         });
@@ -57,7 +57,7 @@ function addEventHandlers(controlsDiv, tabId) {
         //}
     });
 
-    controlsDiv.find('#next').click(function () {
+    controlsDiv.find('.next').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'next'}, function (resp) {
             console.log('resp: ' + resp)
         });
@@ -67,14 +67,14 @@ function addEventHandlers(controlsDiv, tabId) {
         //sendMessageTitle(controlsDiv, tabId);
     });
 
-    controlsDiv.find('#replay').click(function () {
+    controlsDiv.find('.replay').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'replay'}, function (resp) {
             console.log('resp: ' + resp)
             //showPauseBtn(controlsDiv);
         });
     });
 
-    controlsDiv.find('#close').click(function () {
+    controlsDiv.find('.close').click(function () {
         chrome.tabs.remove(tabId);
         controlsDiv.hide();
     });
@@ -136,13 +136,13 @@ function addControls(tabs) {
 }
 
 function showPauseBtn(controlsDiv) {
-    controlsDiv.find('#play').hide();
-    controlsDiv.find('#pause').show();
+    controlsDiv.find('.play').hide();
+    controlsDiv.find('.pause').show();
 }
 
 function showPlayBtn(controlsDiv) {
-    controlsDiv.find('#play').show();
-    controlsDiv.find('#pause').hide();
+    controlsDiv.find('.play').show();
+    controlsDiv.find('.pause').hide();
 }
 
 function updatePlayPause(controlsDiv, isPlaying) {
@@ -154,7 +154,7 @@ function updatePlayPause(controlsDiv, isPlaying) {
 }
 
 function updatePrevNextAvailability(controlsDiv, status) {
-    var prevEl = controlsDiv.find('#prev');
+    var prevEl = controlsDiv.find('.prev');
     if (status.prevAvailable) {
         prevEl.addClass('enabled');
         prevEl.removeClass('disabled');
@@ -163,7 +163,7 @@ function updatePrevNextAvailability(controlsDiv, status) {
         prevEl.removeClass('enabled');
     }
 
-    var nextEl = controlsDiv.find('#next');
+    var nextEl = controlsDiv.find('.next');
     if (status.nextAvailable) {
         nextEl.removeClass('disabled');
         nextEl.addClass('enabled')
