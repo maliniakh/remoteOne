@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "PauseMe",
-  "description": "pauses/plays (music) videos across all tabs",
+  "name": "remoteOne",
+  "description": "pauses/plays (music) videos on supported sites across all tabs",
   "version": "1.0",
   "browser_action": {
     "default_icon": "img/remote_control-26.png",
