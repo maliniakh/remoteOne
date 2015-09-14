@@ -4,7 +4,7 @@
   "description": "pauses/plays (music) videos across all tabs",
   "version": "1.0",
   "browser_action": {
-    "default_icon": "img/icon_play.png",
+    "default_icon": "img/remote_control-26.png",
     "default_popup": "popup.html"
   },
   "permissions": [
