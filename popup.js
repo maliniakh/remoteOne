@@ -77,6 +77,11 @@ function addEventHandlers(controlsDiv, tabId) {
     controlsDiv.find('.close').click(function () {
         chrome.tabs.remove(tabId);
         controlsDiv.hide();
+
+        // test if no tabs div needs to be added
+        if($('.controlBar:visible').length == 0) {
+            $('.notabs').show();
+        }
     });
 }
 document.addEventListener('DOMContentLoaded', function () {
@@ -93,7 +98,6 @@ function getRelevantTabs(callback) {
 
         getRelevantTabsQuery(qi, callback);
     }
-    ;
 
     console.log("all relevant tabs: " + result.length);
 }
@@ -109,6 +113,9 @@ function addControls(tabs) {
     if (tabs.length == 0) {
         return;
     }
+
+    // make notabs div hidden
+    $('.notabs').hide();
 
     for (var i = 0; i < tabs.length; i++) {
         var tab = tabs[i];

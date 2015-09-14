@@ -137,7 +137,14 @@ div {
     margin-bottom: 5px;
 }
 
-
+.notabs {
+    text-align: center;
+    border-bottom: #535353 1px solid;
+    margin: 5px 6px;
+    font-size: 110%;
+    color: #303030;
+    /*border-radius: 7px;*/
+}
 
 
 
