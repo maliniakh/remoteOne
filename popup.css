@@ -93,6 +93,7 @@ div {
     height: auto;
     width: auto;
     max-width: 70px;
+    border-radius: 8px;
 }
 
 .buttons img {
