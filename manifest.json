@@ -20,6 +20,7 @@
       "js": [
         "lib/jquery-2.1.4.min.js",
         "lib/purl.js",
+        "lib/jquery.waitForElement.js",
         "sites/site.js",
         "sites/youtube.js",
         "sites/soundcloud.js",
