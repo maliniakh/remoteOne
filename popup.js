@@ -36,25 +36,18 @@ function addEventHandlers(controlsDiv, tabId) {
         chrome.tabs.sendMessage(tabId, {action: 'prevNextAvailability'}, function (resp) {
             updatePrevNextAvailability(controlsDiv, resp)
         });
-        //sendMessageTitle(controlsDiv, tabId);
     });
 
     controlsDiv.find('.pause').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'pause'}, function (resp) {
             console.log('resp: ' + resp)
         });
-        //showPlayBtn(controlsDiv);
     });
 
     controlsDiv.find('.play').click(function () {
         chrome.tabs.sendMessage(tabId, {action: 'play'}, function (resp) {
             console.log('resp: ' + resp)
         });
-        //showPauseBtn(controlsDiv);
-
-        //if(controlsDiv.attr('data-site-name') == 'sc') {
-        //    pauseAllBut(controlsDiv, 'sc');
-        //}
     });
 
     controlsDiv.find('.next').click(function () {
@@ -64,7 +57,6 @@ function addEventHandlers(controlsDiv, tabId) {
         chrome.tabs.sendMessage(tabId, {action: 'prevNextAvailability'}, function (resp) {
             updatePrevNextAvailability(controlsDiv, resp)
         });
-        //sendMessageTitle(controlsDiv, tabId);
     });
 
     controlsDiv.find('.replay').click(function () {
@@ -126,7 +118,7 @@ function addControls(tabs) {
         var controlsDiv = templateDiv.clone(false);
         controlsDiv.attr('id', 'tab_' + tab.windowId + "_" + tab.id);
         controlsDiv.attr('data-tabId', tab.id);
-        controlsDiv.css('display', '');
+        // controlsDiv is set visible upon receiving title message
 
         // title & others
         sendMessageThumbnail(controlsDiv, tab.id);
@@ -138,6 +130,16 @@ function addControls(tabs) {
 
         $('#main').append(controlsDiv);
         //templateDiv.after(controlsDiv);
+
+        // wait for all messages message data to be sent back
+        //var mo = new MutationObserver(function (ctrlDiv) {
+        //        ctrlDiv = $(ctrlDiv);
+        //        if(isControlsDivInit(ctrlDiv)) {
+        //            ctrlDiv.css('display', '');
+        //        }
+        //    }
+        //);
+        //mo.observe(controlsDiv.get(0), {subtree: false, attributes: true});
     }
 
 }
@@ -184,16 +186,19 @@ function sendMessageTitle(controlsDiv, tabId) {
     chrome.tabs.sendMessage(tabId, {action: 'title'}, function (resp) {
         console.log('got title: ' + resp.title);
         controlsDiv.find('.title').text(resp.title);
+        controlsDiv.css('display', '');
+        controlsDiv.attr('data-title-init', 'true');
     });
 }
 
 function sendMessageIsPlaying(controlsDiv, tabId) {
-    chrome.tabs.sendMessage(tabId, {action: 'isPlaying'},
-        function (resp) {
+    chrome.tabs.sendMessage(tabId, {action: 'isPlaying'}, function (resp) {
             var isPlaying = resp.playing;
             console.log('tab ' + tabId + ' is playing: ' + isPlaying);
 
             updatePlayPause(controlsDiv, isPlaying);
+
+            controlsDiv.attr('data-isPlaying-init', 'true');
         }
     );
 }
@@ -204,6 +209,8 @@ function sendMessagePrevNextAvailability(controlsDiv, tabId) {
             console.log('prev/next availability (' + tabId + '): ' + resp.prev + "/" + resp.next);
 
             updatePrevNextAvailability(controlsDiv, resp);
+
+            controlsDiv.attr('data-prevnext-init', 'true');
         }
     );
 }
@@ -266,6 +273,14 @@ function beforePopupOpen() {
 function beforePopupClose() {
     $('body').css('min-height', '');
     $('body').css('min-width', '');
+}
+
+function isControlsDivInit(controlsDiv) {
+    if(controlsDiv.attr('data-title-init') && controlsDiv.attr('data-prevnext-init') && controlsDiv.attr('data-isPlaying-init')) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function activate() {
