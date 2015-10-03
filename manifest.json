@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "remoteOne",
-  "description": "pauses/plays (music) videos on supported sites across all tabs",
+  "description": "Enables controlling audio / video media across all tabs with a single button",
   "version": "1.0",
   "browser_action": {
     "default_icon": "img/remoteOne19.png",
