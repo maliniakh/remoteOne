@@ -106,9 +106,6 @@ function addControls(tabs) {
         return;
     }
 
-    // make notabs div hidden
-    $('.notabs').hide();
-
     for (var i = 0; i < tabs.length; i++) {
         var tab = tabs[i];
 
@@ -129,19 +126,7 @@ function addControls(tabs) {
         addSiteNameAndEventHandlers(controlsDiv, tab.id);
 
         $('#main').append(controlsDiv);
-        //templateDiv.after(controlsDiv);
-
-        // wait for all messages message data to be sent back
-        //var mo = new MutationObserver(function (ctrlDiv) {
-        //        ctrlDiv = $(ctrlDiv);
-        //        if(isControlsDivInit(ctrlDiv)) {
-        //            ctrlDiv.css('display', '');
-        //        }
-        //    }
-        //);
-        //mo.observe(controlsDiv.get(0), {subtree: false, attributes: true});
     }
-
 }
 
 function showPauseBtn(controlsDiv) {
@@ -188,6 +173,8 @@ function sendMessageTitle(controlsDiv, tabId) {
         controlsDiv.find('.title').text(resp.title);
         controlsDiv.css('display', '');
         controlsDiv.attr('data-title-init', 'true');
+
+        $('.notabs').hide();
     });
 }
 
