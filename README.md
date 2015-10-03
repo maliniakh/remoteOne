@@ -4,10 +4,10 @@ Chrome extension that enables controlling audio / video media on supported sites
 
 
 ### Currently supported sites:
-Youtube
-Spotify
-SoundCloud
-Mixcloud
+* Youtube
+* Spotify
+* SoundCloud
+* Mixcloud
 
 ### Chrome Web Store:
 https://chrome.google.com/webstore/detail/remoteone/hmkoiabojmciofgiednpjdkfkbfojnki
