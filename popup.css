@@ -79,7 +79,7 @@ div {
 }
 
 .buttons {
-    border-bottom: solid 1px gray;
+    border-bottom: solid 1px rgb(177, 177, 177);;
     text-align: center;
     padding-bottom: 3px;
     font-size: 0;
