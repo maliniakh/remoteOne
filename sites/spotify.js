@@ -107,9 +107,18 @@ Spotify.prototype.isNextAvailable = function () {
 };
 
 Spotify.prototype.replay = function () {
-    // there might not be a better way at all
+    // there might not be a better way at all :(
     this.next();
-    this.prev();
+    // wait until title is changed...
+    new MutationObserver(function () {
+            new Spotify().prev();
+            this.disconnect();
+        }
+    ).observe($('#app-player').contents().find("#track-name-wrapper")[0], {
+            subtree: true,
+            attributes: true,
+            childList: true
+        });
 };
 
 Spotify.prototype.getTitle = function () {

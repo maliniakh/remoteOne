@@ -78,7 +78,9 @@ YouTube.prototype.isNextAvailable = function () {
 
 YouTube.prototype.replay = function () {
     $('video')[0].currentTime = 0;
-    this.play();
+    if(this.isPlaying() == false) {
+        this.play();
+    }
 };
 
 YouTube.prototype.getTitle = function () {
