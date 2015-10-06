@@ -11,3 +11,6 @@ Chrome extension that enables controlling audio / video media on supported sites
 
 ### Chrome Web Store:
 https://chrome.google.com/webstore/detail/remoteone/hmkoiabojmciofgiednpjdkfkbfojnki
+
+### TODO
+* Support embedded players
