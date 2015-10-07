@@ -8,22 +8,24 @@ YouTube.prototype.registerMutationObservers = function () {
     var instance = new YouTube();
 
     // updating titles
-    var el = $('.ytp-chrome-controls')[0];
-    new MutationObserver(function () {
-            instance.sendTitle(instance.getTitle());
-        }
-    ).observe(el, {subtree: true, attributes: true});
+    $('.ytp-chrome-controls').waitUntilExists(function () {
+        var el = $('.ytp-chrome-controls')[0];
+        new MutationObserver(function () {
+                instance.sendTitle(instance.getTitle());
+            }
+        ).observe(el, {subtree: true, attributes: true});
 
-    // updating buttons
-    new MutationObserver(function () {
-            instance.sendControlsState(
-                {
-                    playing: instance.isPlaying(),
-                    prevAvailable: instance.isPrevAvailable(),
-                    nextAvailable: instance.isNextAvailable()
-                });
-        }
-    ).observe(el, {subtree: true, attributes: true});
+        // updating buttons
+        new MutationObserver(function () {
+                instance.sendControlsState(
+                    {
+                        playing: instance.isPlaying(),
+                        prevAvailable: instance.isPrevAvailable(),
+                        nextAvailable: instance.isNextAvailable()
+                    });
+            }
+        ).observe(el, {subtree: true, attributes: true});
+    });
 };
 
 YouTube.prototype.isIt = function () {
