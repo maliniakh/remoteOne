@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "remoteOne",
   "description": "Enables controlling audio / video media across all tabs with a single button",
-  "version": "1.0",
+  "version": "1.1",
   "browser_action": {
     "default_icon": "img/remoteOne19.png",
     "default_popup": "popup.html"
