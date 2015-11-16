@@ -17,3 +17,5 @@ https://chrome.google.com/webstore/detail/remoteone/hmkoiabojmciofgiednpjdkfkbfo
 * ripple effect on buttons
 * support embedded players
 * some kind of spinner when changing songs
+* format title
+* 
