@@ -18,4 +18,4 @@ https://chrome.google.com/webstore/detail/remoteone/hmkoiabojmciofgiednpjdkfkbfo
 * support embedded players
 * some kind of spinner when changing songs
 * format title
-* 
+* prev / next for mixcloud
