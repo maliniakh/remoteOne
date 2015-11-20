@@ -19,3 +19,4 @@ https://chrome.google.com/webstore/detail/remoteone/hmkoiabojmciofgiednpjdkfkbfo
 * some kind of spinner when changing songs
 * format title
 * prev / next for mixcloud
+* progress bar
