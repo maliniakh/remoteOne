@@ -13,6 +13,10 @@ Chrome extension that enables controlling audio / video media on supported sites
 https://chrome.google.com/webstore/detail/remoteone/hmkoiabojmciofgiednpjdkfkbfojnki
 
 ### TODO
+* pandora support
 * ripple effect on buttons
 * support embedded players
 * some kind of spinner when changing songs
+* format title
+* prev / next for mixcloud
+* progress bar
