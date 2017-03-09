@@ -25,7 +25,7 @@ Soundcloud.prototype.registerMutationObservers = function () {
                     nextAvailable: instance.isNextAvailable()
                 });
         }
-    ).observe(document.querySelector('.playControls__playPauseSkip'),
+    ).observe(document.querySelector('.playControls__play'),
         {attributeFilter: ['class'], subtree: true, attributes: true});
 };
 
